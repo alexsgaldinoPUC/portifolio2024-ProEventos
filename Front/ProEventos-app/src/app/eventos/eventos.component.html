@@ -1,7 +1,70 @@
-<h2>Eventos do Component</h2>
+<h2>Eventos</h2>
+<hr />
+<div class="input-group mb-2">
+  <label class="btn btn-outline-dark">Filtro: </label>
+  <input
+    type="text"
+    class="form-control mr-2"
+    palcehilder="buscar"
+    [(ngModel)]="filtroLista"
+  />
+  <!-- <button class="btn btn-outline-success"></button> -->
+</div>
 
-@for (evento of eventos; track $index) {
-<p><b>Tema:</b>{{ evento.tema }}</p>
-<p><b>Local:</b>{{ evento.local }}</p>
-<hr>
-}
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm btn-mostrar"
+          (click)="alternarImagem()"
+        >
+          {{ mostrarImagem ? "Mostrar" : "Ocultar" }}
+        </button>
+      </th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  @if (eventos && eventos.length) {
+  <tbody>
+    @for (evento of eventosFiltrados; track $index) {
+    <tr>
+      <td>
+        <img
+          [collapse]="mostrarImagem"
+          [isAnimated]="true"
+          src="/assets/images/{{ evento.imagemUrl }}"
+          alt=""
+          class="imagem-lista"
+        />
+      </td>
+      <td>{{ evento.id }}</td>
+      <td>{{ evento.tema }}</td>
+      <td>{{ evento.local }}</td>
+      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.qtdePessoas }}</td>
+      <td>{{ evento.lote }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm me-2">Editar</button>
+        <button class="btn btn-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
+    }
+  </tbody>
+  } @else {
+  <tfoot>
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+  }
+</table>
