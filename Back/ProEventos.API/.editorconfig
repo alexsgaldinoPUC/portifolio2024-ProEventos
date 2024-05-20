@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# CS8620: O argumento não pode ser usado para o parâmetro devido a diferenças na nulidade dos tipos de referência.
+dotnet_diagnostic.CS8620.severity = none
+
+# IDE0001: Simplificar Nomes
+dotnet_diagnostic.IDE0001.severity = none
+
+# CA2201: Não gerar tipos de exceção reservados
+dotnet_diagnostic.CA2201.severity = silent

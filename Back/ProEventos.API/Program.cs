@@ -1,18 +1,30 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using ProEventos.API.Data;
+using ProEventos.Application.Servicos.Contratos.Eventos;
+using ProEventos.Application.Servicos.Implementacao.Eventos;
+using ProEventos.Persistence.Data;
+using ProEventos.Persistence.Interfaces.Contratos.Eventos;
+using ProEventos.Persistence.Interfaces.Contratos.Geral;
+using ProEventos.Persistence.Interfaces.Implementacao.Eventos;
+using ProEventos.Persistence.Interfaces.Implementacao.Geral;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 // Add context of project
-builder.Services.AddDbContext<DataContext>(
+builder.Services.AddDbContext<ProEventosContext>(
     options => options.UseSqlite(builder.Configuration.GetConnectionString("Default"))
     );
 
 // Add controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+// Add Services and pesistence
+builder.Services.AddScoped<IEventosServices, EventosServices>();
+builder.Services.AddScoped<IGeralPersistence, GeralPersistence>();
+builder.Services.AddScoped<IEventosPersistence, EventosPersistence>();
 
 // Add cors polyce
 builder.Services.AddCors();
