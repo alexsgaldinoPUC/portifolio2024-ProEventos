@@ -1,5 +1,5 @@
-<h2>Eventos</h2>
-<hr />
+<app-barraTitulo [titulo]="'Eventos'"></app-barraTitulo>
+
 <div class="input-group mb-2">
   <label class="btn btn-outline-dark">Filtro: </label>
   <input
@@ -20,8 +20,9 @@
           class="btn btn-outline-light btn-sm btn-mostrar"
           (click)="alternarImagem()"
         >
+          <i class="{{ mostrarImagem ? 'fa fa-eye' : 'fa fa-eye-slash' }}"></i>
           {{ mostrarImagem ? "Mostrar" : "Ocultar" }}
-        </button>
+        </button> 
       </th>
       <th>#</th>
       <th>Tema</th>
@@ -48,12 +49,16 @@
       <td>{{ evento.id }}</td>
       <td>{{ evento.tema }}</td>
       <td>{{ evento.local }}</td>
-      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.dataEvento | DateTimeFormat }}</td>
       <td>{{ evento.qtdePessoas }}</td>
-      <td>{{ evento.lote }}</td>
+      <td>{{ evento.lotes[0]?.nome }}</td>
       <td>
-        <button class="btn btn-primary btn-sm me-2">Editar</button>
-        <button class="btn btn-danger btn-sm">Excluir</button>
+        <button type="button" class="btn btn-primary btn-sm me-2" tooltip="Editar">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template)">
+          <i class="fa fa-trash"></i>
+        </button>
       </td>
     </tr>
     }
@@ -68,3 +73,12 @@
   </tfoot>
   }
 </table>
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Confirma a exclusão do evento?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>
