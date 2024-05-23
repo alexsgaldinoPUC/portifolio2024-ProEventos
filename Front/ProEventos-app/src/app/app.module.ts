@@ -19,23 +19,37 @@ import { DateTimeFormatPipe } from './util/pipes';
 import { BarraTituloComponent } from './components/shared/barraTitulo/barraTitulo.component';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EventosComponent } from './components/eventos/eventos.component';
 import { NavComponent } from './components/shared/nav/nav.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { EventoService } from './services/evento';
+import {
+  EventoDetalheComponent,
+  EventoListaComponent,
+  EventosComponent,
+} from './components/eventos';
+import {
+  CadastroComponent,
+  LoginComponent,
+  PerfilComponent,
+  UsuarioComponent,
+} from './components/usuario';
 
-import { EventoService } from './services/evento/Evento.service';
 @NgModule({
   declarations: [
     AppComponent,
     BarraTituloComponent,
+    CadastroComponent,
     ContatosComponent,
     DashboardComponent,
     DateTimeFormatPipe,
+    EventoDetalheComponent,
+    EventoListaComponent,
     EventosComponent,
+    LoginComponent,
     PalestrantesComponent,
     PerfilComponent,
     NavComponent,
+    UsuarioComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -47,14 +61,14 @@ import { EventoService } from './services/evento/Evento.service';
     HttpClientModule,
     ModalModule.forRoot(),
     NgxSpinnerModule.forRoot({
-      type: 'ball-climbing-dot'
+      type: 'ball-climbing-dot',
     }),
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true,
-      progressAnimation: 'increasing'
+      progressAnimation: 'increasing',
     }),
     TooltipModule.forRoot(),
   ],

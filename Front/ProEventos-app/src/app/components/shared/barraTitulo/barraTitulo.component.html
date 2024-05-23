@@ -1,2 +1,14 @@
-<h2>{{titulo}}</h2>
-<hr />
+<div class="p-3 my-3 text-white bg-dark rounded shadow-sm">
+  <div class="d-flex align-items-center ">
+    <i class="{{iconeTitulo}} iconeBarraTitulo me-2"></i>
+    <div class="me-auto">
+      <h4 class="mb-0">{{titulo}}</h4>
+      <small>{{subTitulo}}</small>
+    </div>
+    @if (botaoListar) {
+      <div>
+        <button class="btn btn-outline-light" (click)="listar()">Listar {{titulo}}</button>
+      </div>
+    }
+  </div>
+</div>
