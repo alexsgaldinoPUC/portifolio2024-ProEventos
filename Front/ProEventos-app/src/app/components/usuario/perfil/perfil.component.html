@@ -113,7 +113,7 @@
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary me-auto  " (click)="resetForm()">
+        <button class="btn btn-outline-secondary me-auto  " (click)="resetForm($event)">
           Cancelar Alteração
         </button>
         <button class="btn btn-outline-success" [disabled]="formPerfil.invalid">
