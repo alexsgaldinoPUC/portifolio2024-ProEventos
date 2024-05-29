@@ -1,67 +1,139 @@
 <div class="row mt-4">
+  <div class="col-md-6 d-none d-md-block" style="height: 450px">
+    <div class="text-center col-md-12 my-auto side-heder">
+      <h2>Cadastro de Usuário</h2>
+      <img
+        src="../../../../assets/images/transferir.png"
+        class="my-4"
+        alt=""
+        width="400px"
+      />
+    </div>
+  </div>
 
-	<div class="col-md-6 d-none d-md-block" style="height: 450px;">
-		<div class="text-center col-md-12 my-auto side-heder">
-			<h2>Cadastro de Usuário</h2>
-			<img src="../../../../assets/images/transferir.png" class="my-4" alt="" width="400px">
-		</div>
-	</div>
-
-	<div class="col-md-6">
-
-		<form class="card bg-light p-1">
-      <div class="pb-2 d-block d-md-none">
-        <h3 class="border-bottom">Cadastro de Usuário</h3>
+  <div class="col-md-6">
+    <form class="card bg-light" [formGroup]="formCadastro">
+      <div class="d-block d-md-none">
+        <h3 class="card-header border-bottom">Cadastro de Usuário</h3>
       </div>
-      <div class="row m-0 ">
-        <div class="form-group col-sm-6 p-1 py-2">
+      <div class="row m-0 p-1">
+        <div class="form-group col-sm-6">
           <label>Primeiro Nome</label>
-          <input type="text" class="form-control" placeholder="Insira o Primeiro nome" />
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': fc.nome.errors && fc.nome.touched }"
+            formControlName="nome"
+            placeholder="Insira o Primeiro nome"
+          />
+          <div class="invalid-feedback">{{ messageReturned(fc.nome, "") }}</div>
         </div>
-        <div class="form-group col-sm-6 p-1 py-2">
+        <div class="form-group col-sm-6">
           <label>Último nome</label>
-          <input type="text" class="form-control" placeholder="Insira o Último nome" />
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': fc.sobrenome.errors && fc.sobrenome.touched
+            }"
+            formControlName="sobrenome"
+            placeholder="Insira o Último nome"
+          />
+          <div class="invalid-feedback">
+            {{ messageReturned(fc.sobrenome, "") }}
+          </div>
         </div>
       </div>
-      <div class="form-group p-1 py-2">
-        <label for="">Email:</label>
-        <input class="form-control" type="text" placeholder="Insira o Nome Completo" />
+      <div class="row m-0 p-1">
+        <div class="form-group">
+          <label for="">e-mail:</label>
+          <input
+            class="form-control"
+            type="email"
+            [ngClass]="{ 'is-invalid': fc.email.errors && fc.email.touched }"
+            formControlName="email"
+            placeholder="Insira um e-amail válido"
+          />
+          <div class="invalid-feedback">
+            {{ messageReturned(fc.email, "") }}
+          </div>
+        </div>
       </div>
-      <div class="form-group p-1 py-2">
-        <label for="">Usuario:</label>
-        <input class="form-control" type="text" placeholder="Insira o nome de Usuário" />
+      <div class="row m-0 p-1">
+        <div class="form-group">
+          <label for="">Usuario:</label>
+          <input
+            class="form-control"
+            type="text"
+            [ngClass]="{
+              'is-invalid': fc.userName.errors && fc.userName.touched
+            }"
+            formControlName="userName"
+            placeholder="Insira o nome de Usuário"
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.userName, '')}}</div>
+        </div>
       </div>
-      <div class="row m-0">
-        <div class="form-group col-sm-6 p-1 py-2">
+      <div class="row m-0 p-1">
+        <div class="form-group col-sm-6">
           <label for="">Senha:</label>
-          <input class="form-control" type="password" placeholder="Digite uma Senha" />
+          <input
+            class="form-control"
+            type="password"
+            [ngClass]="{
+              'is-invalid': fc.password.errors && fc.password.touched
+            }"
+            formControlName="password"
+            placeholder="Digite uma Senha"
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.password, '')}}</div>
         </div>
-        <div class="form-group col-sm-6 p-1 py-2">
+        <div class="form-group col-sm-6">
           <label for="">Confirmar Senha:</label>
-          <input class="form-control" type="password" placeholder="Confirme a Senha" />
+          <input
+            class="form-control"
+            type="password"
+            [ngClass]="{
+              'is-invalid':
+                fc.confirmarPassword.errors && fc.confirmarPassword.touched
+            }"
+            formControlName="confirmarPassword"
+            placeholder="Confirme a Senha"
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.confirmarPassword, 'Confirmar Senha')}}</div>
         </div>
       </div>
-      <div class="row m-0">
-        <div class="custom-control custom-checkbox p-1 py-2">
-          <input type="checkbox" class="custom-control-input  p-0 py-2" id="customCheck1">
-          <label class="custom-control-label  p-1">Eu concordo com os <a href="#">Termos de Uso</a>.</label>
+      <div class="row m-0 p-1">
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            class="custom-control-input p-0 py-2"
+            id="customCheck1"
+          />
+          <label class="custom-control-label p-1"
+            >Eu concordo com os <a href="#">Termos de Uso</a>.</label
+          >
         </div>
       </div>
-      <div class="row m-0">
-        <div class="form-group col-12 d-grid gap-2 p-1 py-2">
-          <button class="btn btn-lg btn-success btn-block ">
-            Registar
-          </button>
+      <div class="card-footer m-0 p-1">
+        <div class="row">
+          <div class="form-group col-12 d-grid">
+            <button
+              class="btn btn-lg btn-success btn-block m-0 p-0"
+              [disabled]="this.formCadastro.invalid"
+            >
+              Registar
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-12 p-1 py-2 text-center">
-          <a class="btn btn-link btn-block " routerLink="/usuarios/login">
-            Já sou Cadastrado
-          </a>
+        <div class="row">
+          <div class="form-group col-12 text-center">
+            <a class="btn btn-link btn-block" routerLink="/usuarios/login">
+              Já sou Cadastrado
+            </a>
+          </div>
         </div>
       </div>
     </form>
-
-	</div>
+  </div>
 </div>

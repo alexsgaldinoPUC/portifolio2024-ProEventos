@@ -1,44 +1,97 @@
-<div class="card rounded shadow-sm p-1 mt-2 bg-light">
-  <form>
-    <div class="p-3">
+<div class="card rounded shadow-sm mt-2 bg-light">
+  <form [formGroup]="formEvento">
+    <h3 class="card-header border-bottom">Detalhe Evento</h3>
+    <div class="p-2">
       <div class="row">
         <div class="form-group col-md-12">
           <label>Tema</label>
-          <input type="text" class="form-control" placeholder="Insira o Tema">
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{'is-invalid': fc.tema.errors && fc.tema.touched }"
+            formControlName="tema"
+            placeholder="Insira o Tema"
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.tema, '')}}</div>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-8">
           <label>Local</label>
-          <input type="text" class="form-control" placeholder="">
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{'is-invalid': fc.local.errors && fc.local.touched }"
+            formControlName="local"
+            placeholder=""
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.local, '')}}</div>
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
-          <input type="datetime" class="form-control" placeholder="">
+          <input
+            type="datetime"
+            class="form-control"
+            [ngClass]="{'is-invalid': fc.dataEvento.errors && fc.dataEvento.touched }"
+            formControlName="dataEvento"
+            placeholder=""
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.dataEvento, '')}}</div>
         </div>
       </div>
       <div class="row">
         <div class="form-group col-md-2">
           <label>Qtd Pessoas</label>
-          <input type="text" class="form-control" placeholder="">
+          <input
+            type="number"
+            class="form-control"
+            [ngClass]="{'is-invalid': fc.qtdPessoas.errors && fc.qtdPessoas.touched }"
+            formControlName="qtdPessoas"
+            placeholder=""
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.qtdPessoas, '')}}</div>
+        </div>
+        <div class="form-group col-md-2">
+          <label>Telefone</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{'is-invalid': fc.telefone.errors && fc.telefone.touched }"
+            formControlName="telefone"
+            placeholder="(000) 90000-0000"
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.telefone, '')}}</div>
         </div>
         <div class="form-group col-md-4">
-          <label>Telefone</label>
-          <input type="text" class="form-control" placeholder="(000) 90000-0000">
+          <label>e-mail</label>
+          <input
+            type="email"
+            class="form-control"
+            [ngClass]="{'is-invalid': fc.email.errors && fc.email.touched }"
+            formControlName="email"
+            placeholder="e-mail"
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.email, '')}}</div>
         </div>
-        <div class="form-group col-md-6">
-          <label>Email</label>
-          <input type="text" class="form-control" placeholder="e-mail">
+        <div class="form-group col-md-4">
+          <label>Imagem URL</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{'is-invalid': fc.imagemUrl.errors && fc.imagemUrl.touched }"
+            formControlName="imagemUrl"
+            placeholder="imagem URL"
+          />
+          <div class="invalid-feedback">{{messageReturned(fc.imagemUrl, '')}}</div>
         </div>
       </div>
     </div>
     <div class="card-footer">
       <div class="d-flex">
-        <button class="btn btn-outline-secondary ms-auto border">
+        <button class="btn btn-outline-secondary me-auto" (click)="resetForm()" >
           Cancelar Alteração
         </button>
-        <button class="btn btn-success">
-          <span class="spinner-border spinner-border-sm mr-1"></span>
+        <button class="btn btn-outline-success ms-2" [disabled]="formEvento.invalid">
           Salvar Evento
         </button>
       </div>
