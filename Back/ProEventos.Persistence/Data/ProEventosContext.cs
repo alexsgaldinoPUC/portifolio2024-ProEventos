@@ -1,8 +1,8 @@
-﻿using ProEventos.Domain.Eventos;
-using Microsoft.EntityFrameworkCore;
-using ProEventos.Domain.Lotes;
-using ProEventos.Domain.Palestrantes;
-using ProEventos.Domain.RedesSociais;
+﻿using Microsoft.EntityFrameworkCore;
+using ProEventos.Domain.Models.Eventos;
+using ProEventos.Domain.Models.Lotes;
+using ProEventos.Domain.Models.Palestrantes;
+using ProEventos.Domain.Models.RedesSociais;
 
 namespace ProEventos.Persistence.Data
 {

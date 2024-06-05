@@ -1,11 +1,6 @@
-﻿using ProEventos.Domain.RedesSociais;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProEventos.Domain.Models.RedesSociais;
 
-namespace ProEventos.Domain.Palestrantes
+namespace ProEventos.Domain.Models.Palestrantes
 {
     public class Palestrante
     {

@@ -1,15 +1,10 @@
-﻿using ProEventos.Domain.Lotes;
-using ProEventos.Domain.Palestrantes;
-using ProEventos.Domain.RedesSociais;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProEventos.Application.Dtos.Lotes;
+using ProEventos.Application.Dtos.Palestrantes;
+using ProEventos.Domain.Models.RedesSociais;
 
-namespace ProEventos.Domain.Eventos
+namespace ProEventos.Application.Dtos.Eventos
 {
-    public class Evento
+    public class EventoDto
     {
         public int Id { get; set; }
         public string Local { get; set; }
@@ -19,8 +14,8 @@ namespace ProEventos.Domain.Eventos
         public string ImagemUrl { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-        public IEnumerable<Lote> Lotes { get; set; }
+        public IEnumerable<LoteDto> Lotes { get; set; }
         public IEnumerable<RedeSocial> RedesSociais { get; set; }
-        public IEnumerable<PalestranteEvento>  PalestrantesEventos { get; set; }
+        public IEnumerable<PalestranteEventoDto> PalestrantesEventos { get; set; }
     }
 }

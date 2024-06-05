@@ -1,19 +1,14 @@
-﻿using ProEventos.Domain.Eventos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProEventos.Application.Dtos.Eventos;
 
 namespace ProEventos.Application.Servicos.Contratos.Eventos
 {
     public interface IEventosServices
     {
-        Task<Evento> AddEventos(Evento _evento);
-        Task<Evento> UpdateEvento(int _eventoId, Evento _evento);
+        Task<EventoDto> AddEventos(EventoDto _eventoDto);
+        Task<EventoDto> UpdateEvento(int _eventoId, EventoDto _eventoDto);
         Task<bool> DeleteEvento(int _eventoId);
 
-        Task<Evento[]> GetTodosEventosPorTemaAsync(string _tema, bool _incluirPalestrantes = false);
-        Task<Evento[]> GetTodosEventosAsync(bool _incluirPalestrantes = false);
-        Task<Evento> GetEventoPorIdAsync(int _eventoId, bool _incluirPalestrantes = false);    }
+        Task<EventoDto[]> GetTodosEventosPorTemaAsync(string _tema, bool _incluirPalestrantes = false);
+        Task<EventoDto[]> GetTodosEventosAsync(bool _incluirPalestrantes = false);
+        Task<EventoDto> GetEventoPorIdAsync(int _eventoId, bool _incluirPalestrantes = false);    }
 }

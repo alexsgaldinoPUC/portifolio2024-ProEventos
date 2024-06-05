@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 using ProEventos.Application.Servicos.Implementacao.Eventos;
@@ -20,6 +20,8 @@ builder.Services.AddDbContext<ProEventosContext>(
 // Add controllers
 builder.Services.AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add Services and pesistence
 builder.Services.AddScoped<IEventosServices, EventosServices>();

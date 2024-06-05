@@ -1,14 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using ProEventos.Domain.Eventos;
-using ProEventos.Domain.Palestrantes;
+using ProEventos.Domain.Models.Palestrantes;
 using ProEventos.Persistence.Data;
 using ProEventos.Persistence.Interfaces.Contratos.Palestrantes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProEventos.Persistence.Interfaces.Implementacao.Palestrantes
 {
