@@ -24,6 +24,7 @@ export class EventoListaComponent {
 
   public eventos = [] as Evento[];
   public eventosFiltrados = [] as Evento[];
+  public eventoId = 0;
 
   public mostrarImagem = false;
 
@@ -51,13 +52,14 @@ export class EventoListaComponent {
   }
 
   public ngOnInit(): void {
-    this.getEventos()
+    this.carregarEventos()
   }
 
-  public getEventos(): void {
+  public carregarEventos(): void {
     this.#spinnerService.show();
 
-    this.#eventoService.getEventos()
+    this.#eventoService
+      .getEventos()
       .subscribe({
         next: (eventos: Evento[]) => {
           this.eventos = eventos;
@@ -71,13 +73,32 @@ export class EventoListaComponent {
       .add(() => this.#spinnerService.hide());
   }
 
-  public openModal(template: TemplateRef<void>) {
-    this.modalRef = this.#modalService.show(template, { class: 'modal-sm' });
+  public openModal(_event: any, _template: TemplateRef<void>, _eventoId: number) {
+    _event.stopPropagation();
+    this.eventoId = _eventoId;
+    this.modalRef = this.#modalService.show(_template, { class: 'modal-sm' });
   }
 
   public confirm(): void {
     this.modalRef.hide();
-    this.#toastrService.info("Exclusão de evento executada!", "Informação")
+    this.#spinnerService.show();
+
+    this.#eventoService
+      .deleteEvento(this.eventoId)
+      .subscribe({
+        next: (result) => {
+          if (result.message == "Excluido") {
+            this.#toastrService.success("Exclusão de evento executada!", "Excluído!")
+            this.carregarEventos();
+          }
+        },
+        error: (error: any) => {
+          console.error(error)
+          this.#toastrService.error(`Erro ao excluir o evento ${this.eventoId}`, "Erro!")
+        }
+      })
+      .add(() => this.#spinnerService.hide())
+
   }
 
   public decline(): void {

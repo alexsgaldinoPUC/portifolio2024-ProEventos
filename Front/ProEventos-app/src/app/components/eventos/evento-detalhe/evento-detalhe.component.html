@@ -1,27 +1,27 @@
 <div class="card rounded shadow-sm mt-2 bg-light">
   <form [formGroup]="formEvento">
-    <h3 class="card-header border-bottom">Detalhe Evento</h3>
-    <div class="p-2">
-      <div class="row">
-        <div class="form-group col-md-12">
+    <h3 class="border-bottom px-2 py-3">Detalhe Evento</h3>
+    <div class="p-0 py-3">
+      <div class="row  p-0 m-0">
+        <div class="form-group col-md-12 ">
           <label>Tema</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': fc.tema.errors && fc.tema.touched }"
+            [ngClass]="fieldValidator(fc.tema)"
             formControlName="tema"
             placeholder="Insira o Tema"
           />
           <div class="invalid-feedback">{{messageReturned(fc.tema, '')}}</div>
         </div>
       </div>
-      <div class="row">
+      <div class="row  p-0 m-0">
         <div class="form-group col-md-8">
           <label>Local</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': fc.local.errors && fc.local.touched }"
+            [ngClass]="fieldValidator(fc.local)"
             formControlName="local"
             placeholder=""
           />
@@ -32,31 +32,34 @@
           <input
             type="datetime"
             class="form-control"
-            [ngClass]="{'is-invalid': fc.dataEvento.errors && fc.dataEvento.touched }"
+            [ngClass]="fieldValidator(fc.dataEvento)"
             formControlName="dataEvento"
             placeholder=""
+            bsDatepicker
+            [bsConfig]="bsConfig"
+            value="{{evento.dataEvento | DateTimeFormat }}"
           />
           <div class="invalid-feedback">{{messageReturned(fc.dataEvento, '')}}</div>
         </div>
       </div>
-      <div class="row">
+      <div class="row  p-0 m-0">
         <div class="form-group col-md-2">
           <label>Qtd Pessoas</label>
           <input
             type="number"
             class="form-control"
-            [ngClass]="{'is-invalid': fc.qtdPessoas.errors && fc.qtdPessoas.touched }"
-            formControlName="qtdPessoas"
+            [ngClass]="fieldValidator(fc.qtdePessoas)"
+            formControlName="qtdePessoas"
             placeholder=""
           />
-          <div class="invalid-feedback">{{messageReturned(fc.qtdPessoas, '')}}</div>
+          <div class="invalid-feedback">{{messageReturned(fc.qtdePessoas, '')}}</div>
         </div>
         <div class="form-group col-md-2">
           <label>Telefone</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': fc.telefone.errors && fc.telefone.touched }"
+            [ngClass]="fieldValidator(fc.telefone)"
             formControlName="telefone"
             placeholder="(000) 90000-0000"
           />
@@ -67,7 +70,7 @@
           <input
             type="email"
             class="form-control"
-            [ngClass]="{'is-invalid': fc.email.errors && fc.email.touched }"
+            [ngClass]="fieldValidator(fc.email)"
             formControlName="email"
             placeholder="e-mail"
           />
@@ -78,7 +81,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid': fc.imagemUrl.errors && fc.imagemUrl.touched }"
+            [ngClass]="fieldValidator(fc.imagemUrl)"
             formControlName="imagemUrl"
             placeholder="imagem URL"
           />
@@ -91,7 +94,7 @@
         <button class="btn btn-outline-secondary me-auto" (click)="resetForm()" >
           Cancelar Alteração
         </button>
-        <button class="btn btn-outline-success ms-2" [disabled]="formEvento.invalid">
+        <button class="btn btn-outline-success ms-2" [disabled]="formEvento.invalid" (click)="salvarEvento()">
           Salvar Evento
         </button>
       </div>

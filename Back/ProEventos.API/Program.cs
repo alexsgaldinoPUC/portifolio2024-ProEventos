@@ -1,5 +1,7 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 using ProEventos.Application.Servicos.Implementacao.Eventos;
 using ProEventos.Persistence.Data;
@@ -25,11 +27,21 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add Services and pesistence
 builder.Services.AddScoped<IEventosServices, EventosServices>();
+
 builder.Services.AddScoped<IGeralPersistence, GeralPersistence>();
 builder.Services.AddScoped<IEventosPersistence, EventosPersistence>();
 
 // Add cors polyce
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200") // Adicione a URL do seu frontend Angular
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();
+    });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -46,14 +58,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseRouting();
 
 // Add Cors Polyces
-app.UseCors( 
-    options => options.AllowAnyOrigin()
-                      .AllowAnyMethod()
-                      .AllowAnyOrigin()
-    );
+app.UseCors("AllowSpecificOrigin");
+
+app.UseAuthorization();
 
 app.MapControllers();
 

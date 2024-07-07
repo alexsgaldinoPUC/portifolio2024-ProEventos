@@ -69,7 +69,7 @@ namespace ProEventos.API.Controllers
             }
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> CriarEvento(EventoDto eventoModel)
         {
             try
@@ -114,7 +114,7 @@ namespace ProEventos.API.Controllers
 
                 if (evento == null) return NoContent();
 
-                return await eventosServices.DeleteEvento(id) ? Ok("EXcluído") : throw new Exception("Ocorreu um problema inesperado ao deletar Evento."); 
+                return await eventosServices.DeleteEvento(id) ? Ok(new { message = "Excluido" }) : throw new Exception("Ocorreu um problema inesperado ao deletar Evento."); 
             }
             catch (Exception ex)
             {
