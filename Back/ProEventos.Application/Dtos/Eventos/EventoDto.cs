@@ -31,8 +31,8 @@ namespace ProEventos.Application.Dtos.Eventos
          Required(ErrorMessage = "O campo {0} "),
          EmailAddress(ErrorMessage = "O campo [0} precisa ter uma contúdo válido.")]
         public string Email { get; set; }
-        public IEnumerable<LoteDto>? Lotes { get; set; }
-        public IEnumerable<RedeSocial>? RedesSociais { get; set; }
-        public IEnumerable<PalestranteEventoDto>? PalestrantesEventos { get; set; }
+        public IEnumerable<LoteDto> Lotes { get; set; }
+        public IEnumerable<RedeSocial> RedesSociais { get; set; }
+        public IEnumerable<PalestranteEventoDto> PalestrantesEventos { get; set; }
     }
 }

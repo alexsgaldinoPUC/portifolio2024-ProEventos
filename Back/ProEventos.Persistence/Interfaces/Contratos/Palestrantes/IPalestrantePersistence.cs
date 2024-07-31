@@ -2,7 +2,7 @@
 
 namespace ProEventos.Persistence.Interfaces.Contratos.Palestrantes
 {
-    public interface IPalestrantesPersistence
+    public interface IPalestrantePersistence
     {
         Task<Palestrante[]> GetTodosPalestrantesPorNomeAsync(string _nome, bool _incluirEventos = false);
         Task<Palestrante[]> GetTodosPalestrantesAsync(bool _incluirEventos = false);

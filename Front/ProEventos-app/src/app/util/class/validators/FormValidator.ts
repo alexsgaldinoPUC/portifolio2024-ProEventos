@@ -18,29 +18,29 @@ export class FormValidator {
     }
   }
 
-  static checkFieldsWhithError(nomeCampo: FormControl): any {
-    return { 'is-invalid': nomeCampo.errors && nomeCampo.touched };
+  static checkFieldsWhithError(nomeCampo: FormControl | AbstractControl | null): any {
+    return { 'is-invalid': nomeCampo?.errors && nomeCampo.touched };
   }
 
-  static returnMessage(nomeCampo: FormControl, elementoCampo: string): any {
-    if (nomeCampo.errors?.["required"])
+  static returnMessage(nomeCampo: FormControl  | AbstractControl | null, elementoCampo: string): any {
+    if (nomeCampo?.errors?.["required"])
       return `Este campo é obrigatório.`;
 
-    if (nomeCampo.errors?.["minlength"])
+    if (nomeCampo?.errors?.["minlength"])
       return `Este campo deve conter no mínimo ${nomeCampo.errors?.["minlength"].requiredLength} caracteres`;
 
-    if (nomeCampo.errors?.["maxlength"])
+    if (nomeCampo?.errors?.["maxlength"])
       return `Este campo deve conter no máximo ${nomeCampo.errors?.["maxlength"].requiredLength} caracteres`;
 
-    if (nomeCampo.errors?.["max"])
+    if (nomeCampo?.errors?.["max"])
       return `Este campo está limitado a ${nomeCampo.errors?.["max"].max} unidades.`;
 
-    if (nomeCampo.errors?.["email"])
+    if (nomeCampo?.errors?.["email"])
       return `Este campo está inválido`;
 
     if (elementoCampo == "Confirmar Senha")
       {
-        if (nomeCampo.errors)
+        if (nomeCampo?.errors)
           return 'Confirmação de senha inválida';
       }
 

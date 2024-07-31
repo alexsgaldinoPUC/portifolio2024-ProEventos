@@ -2,14 +2,15 @@
 using ProEventos.Domain.Models.Eventos;
 using ProEventos.Persistence.Data;
 using ProEventos.Persistence.Interfaces.Contratos.Eventos;
+using ProEventos.Persistence.Interfaces.Contratos.Lotes;
 
 namespace ProEventos.Persistence.Interfaces.Implementacao.Eventos
 {
-    public class EventosPersistence: IEventosPersistence
+    public class EventoPersistence: IEventoPersistence
         {
         private readonly ProEventosContext context;
 
-        public EventosPersistence(ProEventosContext _context)
+        public EventoPersistence(ProEventosContext _context)
         {
             context = _context;
         }

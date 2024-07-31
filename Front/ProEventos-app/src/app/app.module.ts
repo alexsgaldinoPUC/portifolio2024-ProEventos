@@ -24,7 +24,6 @@ import { ContatosComponent } from './components/contatos/contatos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavComponent } from './components/shared/nav/nav.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
-import { EventoService } from './services/evento';
 import {
   EventoDetalheComponent,
   EventoListaComponent,
@@ -36,6 +35,8 @@ import {
   PerfilComponent,
   UsuarioComponent,
 } from './components/usuario';
+import { EventoService, LoteService } from './services';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -63,6 +64,7 @@ defineLocale('pt-br', ptBrLocale);
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
+    CurrencyMaskModule,
     FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
@@ -79,7 +81,7 @@ defineLocale('pt-br', ptBrLocale);
     }),
     TooltipModule.forRoot(),
   ],
-  providers: [EventoService],
+  providers: [EventoService, LoteService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

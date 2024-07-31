@@ -1,14 +1,16 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using ProEventos.Application.Servicos.Contratos.Eventos;
+using ProEventos.Application.Servicos.Contratos.Lotes;
 using ProEventos.Application.Servicos.Implementacao.Eventos;
+using ProEventos.Application.Servicos.Implementacao.Lotes;
 using ProEventos.Persistence.Data;
 using ProEventos.Persistence.Interfaces.Contratos.Eventos;
 using ProEventos.Persistence.Interfaces.Contratos.Geral;
+using ProEventos.Persistence.Interfaces.Contratos.Lotes;
 using ProEventos.Persistence.Interfaces.Implementacao.Eventos;
 using ProEventos.Persistence.Interfaces.Implementacao.Geral;
+using ProEventos.Persistence.Interfaces.Implementacao.Lotes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,10 +28,12 @@ builder.Services.AddControllers()
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add Services and pesistence
-builder.Services.AddScoped<IEventosServices, EventosServices>();
+builder.Services.AddScoped<IEventoServices, EventoServices>()
+                .AddScoped<ILoteServices, LoteServices>();
 
-builder.Services.AddScoped<IGeralPersistence, GeralPersistence>();
-builder.Services.AddScoped<IEventosPersistence, EventosPersistence>();
+builder.Services.AddScoped<IGeralPersistence, GeralPersistence>()
+                .AddScoped<IEventoPersistence, EventoPersistence>()
+                .AddScoped<ILotePersistence, LotePersistence>();
 
 // Add cors polyce
 builder.Services.AddCors(options =>

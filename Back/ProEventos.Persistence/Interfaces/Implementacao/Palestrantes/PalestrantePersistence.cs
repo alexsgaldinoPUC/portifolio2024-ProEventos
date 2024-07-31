@@ -5,10 +5,10 @@ using ProEventos.Persistence.Interfaces.Contratos.Palestrantes;
 
 namespace ProEventos.Persistence.Interfaces.Implementacao.Palestrantes
 {
-    internal class PalestrantesPersistence : IPalestrantesPersistence
+    internal class PalestrantePersistence : IPalestrantePersistence
     {
         private readonly ProEventosContext context;
-        public PalestrantesPersistence(ProEventosContext _context)
+        public PalestrantePersistence(ProEventosContext _context)
         {
             context = _context;
         }

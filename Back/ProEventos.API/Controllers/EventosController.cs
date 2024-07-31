@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Application.Dtos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Eventos;
+using ProEventos.Application.Servicos.Contratos.Lotes;
 
 namespace ProEventos.API.Controllers
 {
@@ -8,9 +9,9 @@ namespace ProEventos.API.Controllers
     [Route("api/[controller]")]
     public class EventosController : ControllerBase
     {
-        private readonly IEventosServices eventosServices;
+        private readonly IEventoServices eventosServices;
 
-        public EventosController(IEventosServices _eventosServices)
+        public EventosController(IEventoServices _eventosServices)
         {
             eventosServices = _eventosServices;
         }

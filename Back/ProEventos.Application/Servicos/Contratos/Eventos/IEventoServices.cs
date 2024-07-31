@@ -2,7 +2,7 @@
 
 namespace ProEventos.Application.Servicos.Contratos.Eventos
 {
-    public interface IEventosServices
+    public interface IEventoServices
     {
         Task<EventoDto> AddEventos(EventoDto _eventoDto);
         Task<EventoDto> UpdateEvento(int _eventoId, EventoDto _eventoDto);

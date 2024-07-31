@@ -1,19 +1,21 @@
 ﻿using AutoMapper;
 using ProEventos.Application.Dtos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Eventos;
+using ProEventos.Application.Servicos.Contratos.Lotes;
 using ProEventos.Domain.Models.Eventos;
 using ProEventos.Persistence.Interfaces.Contratos.Eventos;
 using ProEventos.Persistence.Interfaces.Contratos.Geral;
+using ProEventos.Persistence.Interfaces.Contratos.Lotes;
 
 namespace ProEventos.Application.Servicos.Implementacao.Eventos
 {
-    public class EventosServices : IEventosServices
+    public class EventoServices : IEventoServices
     {
         private readonly IGeralPersistence geralPersistence;
-        private readonly IEventosPersistence eventosPersistence;
+        private readonly IEventoPersistence eventosPersistence;
         private readonly IMapper mapper;
 
-        public EventosServices(IGeralPersistence _geralPersistence, IEventosPersistence _eventosPersistence, IMapper _mapper)
+        public EventoServices(IGeralPersistence _geralPersistence, IEventoPersistence _eventosPersistence, IMapper _mapper)
         {
             geralPersistence = _geralPersistence;
             eventosPersistence = _eventosPersistence;
