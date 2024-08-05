@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Evento } from '../../../interfaces/models';
 import { EventoService } from '../../../services/evento';
 import { Router } from '@angular/router';
+import { environment } from '../../../../assets/environments/environment';
 
 @Component({
   selector: 'app-evento-lista',
@@ -32,6 +33,10 @@ export class EventoListaComponent {
 
   public alternarImagem(): void {
     this.mostrarImagem = !this.mostrarImagem;
+  }
+
+  public exibirImagem(imagemUrl: string): string {
+    return (imagemUrl !== "" ? `${environment.imagemEventosURL}${imagemUrl}` : environment.imageDefault)
   }
 
   public get filtroLista(): string {

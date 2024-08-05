@@ -45,7 +45,7 @@
           <img
             [collapse]="mostrarImagem"
             [isAnimated]="true"
-            src="/assets/images/{{ evento.imagemUrl }}"
+            [src]="exibirImagem(evento.imagemUrl)"
             alt=""
             class="imagem-lista"
           />

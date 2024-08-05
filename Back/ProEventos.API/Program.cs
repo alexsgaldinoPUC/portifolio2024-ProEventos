@@ -1,5 +1,7 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using ProEventos.API.Util.Services.Contratos.Uploads;
+using ProEventos.API.Util.Services.Implementacao.Uploads;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Lotes;
 using ProEventos.Application.Servicos.Implementacao.Eventos;
@@ -29,7 +31,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add Services and pesistence
 builder.Services.AddScoped<IEventoServices, EventoServices>()
-                .AddScoped<ILoteServices, LoteServices>();
+                .AddScoped<ILoteServices, LoteServices>()
+                .AddScoped<IUploadServices, UploadServices>();
 
 builder.Services.AddScoped<IGeralPersistence, GeralPersistence>()
                 .AddScoped<IEventoPersistence, EventoPersistence>()
@@ -66,6 +69,13 @@ app.UseRouting();
 
 // Add Cors Polyces
 app.UseCors("AllowSpecificOrigin");
+
+// Add Upload Config
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Recursos")),
+    RequestPath = new PathString("/Recursos")
+});
 
 app.UseAuthorization();
 

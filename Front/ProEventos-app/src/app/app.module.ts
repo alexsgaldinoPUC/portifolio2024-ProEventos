@@ -35,7 +35,7 @@ import {
   PerfilComponent,
   UsuarioComponent,
 } from './components/usuario';
-import { EventoService, LoteService } from './services';
+import { EventoService, LoteService, UploadService } from './services';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 defineLocale('pt-br', ptBrLocale);
@@ -81,7 +81,7 @@ defineLocale('pt-br', ptBrLocale);
     }),
     TooltipModule.forRoot(),
   ],
-  providers: [EventoService, LoteService],
+  providers: [EventoService, LoteService, UploadService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

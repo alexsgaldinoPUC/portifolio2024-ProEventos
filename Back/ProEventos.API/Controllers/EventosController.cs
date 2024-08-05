@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using ProEventos.API.Util.Services.Contratos.Uploads;
 using ProEventos.Application.Dtos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Eventos;
-using ProEventos.Application.Servicos.Contratos.Lotes;
 
 namespace ProEventos.API.Controllers
 {
@@ -10,10 +10,13 @@ namespace ProEventos.API.Controllers
     public class EventosController : ControllerBase
     {
         private readonly IEventoServices eventosServices;
+        private readonly IUploadServices uploadServices;
+        private readonly string destinoImagens = "Imagens";
 
-        public EventosController(IEventoServices _eventosServices)
+        public EventosController(IEventoServices _eventosServices, IUploadServices _uploadServices)
         {
             eventosServices = _eventosServices;
+            uploadServices = _uploadServices;
         }
 
         [HttpGet]
@@ -115,7 +118,14 @@ namespace ProEventos.API.Controllers
 
                 if (evento == null) return NoContent();
 
-                return await eventosServices.DeleteEvento(id) ? Ok(new { message = "Excluido" }) : throw new Exception("Ocorreu um problema inesperado ao deletar Evento."); 
+                if (await eventosServices.DeleteEvento(id))
+                {
+                    uploadServices.DeleteImagem(evento.ImagemUrl, destinoImagens);
+                    return Ok(new { message = "Excluido" });
+                } else
+                {
+                    throw new Exception("Ocorreu um problema inesperado ao deletar Evento."); 
+                }
             }
             catch (Exception ex)
             {

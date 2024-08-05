@@ -17,8 +17,9 @@ import { FormValidator } from '../../../util/class';
 
 import { Evento, Lote } from '../../../interfaces/models';
 
-import { EventoService, LoteService } from '../../../services';
+import { EventoService, LoteService, UploadService } from '../../../services';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { environment } from '../../../../assets/environments/environment';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -35,11 +36,13 @@ export class EventoDetalheComponent {
   #routerService = inject(Router);
   #spinnerService = inject(NgxSpinnerService);
   #toastrService = inject(ToastrService);
+  #uploadService = inject(UploadService);
 
   public modalRef = {} as BsModalRef;
 
   public formEvento = {} as FormGroup;
   public formLotes = {} as FormGroup;
+  public formImagem = {} as FormGroup;
 
   private eventoIdParam: any = '';
 
@@ -47,6 +50,8 @@ export class EventoDetalheComponent {
   public loteAtual = { id: 0, nome: '', indice: 0 };
 
   public modoEditar = false;
+
+  public imagemUrl = 'assets/images/upload.png';
 
   public get bsConfig(): any {
     return {
@@ -104,7 +109,7 @@ export class EventoDetalheComponent {
         ],
       ],
       qtdePessoas: ['', [Validators.required, Validators.max(120000)]],
-      imagemUrl: ['', Validators.required],
+      imagemUrl: [''],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
     });
@@ -137,6 +142,8 @@ export class EventoDetalheComponent {
         next: (evento: Evento) => {
           this.evento = { ...evento };
           this.formEvento.patchValue(this.evento);
+          if (this.evento.imagemUrl !== '')
+            this.imagemUrl = environment.imagemEventosURL + this.evento.imagemUrl
           console.log(this.evento);
 
           evento.lotes.forEach((element) => {
@@ -266,5 +273,35 @@ export class EventoDetalheComponent {
     nomeElemento: string
   ): any {
     return FormValidator.returnMessage(nomeCampo, nomeElemento);
+  }
+
+  public onFileChange(event: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (img: any) => this.imagemUrl = img.target.result;
+
+    const file = event.target.files;
+
+    reader.readAsDataURL(file[0]);
+
+    this.uploadImage(file);
+  }
+
+  public uploadImage(file: File): void {
+    this.#spinnerService.show();
+
+    this.#uploadService
+      .uploadImagem(this.eventoIdParam, file)
+      .subscribe({
+        next: () => {
+          this.carregarEvento();
+          this.#toastrService.success('Imagem atualizada com sucesso!', 'Sucesso!')
+        },
+        error: (error: any) => {
+          this.#toastrService.error("Falha ao atualizar a imagem.", "Erro!");
+          console.log(error)
+        }
+      })
+      .add(() => this.#spinnerService.hide());
   }
 }
