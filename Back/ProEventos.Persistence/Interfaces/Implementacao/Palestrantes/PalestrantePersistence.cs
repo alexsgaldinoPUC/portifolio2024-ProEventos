@@ -2,13 +2,14 @@
 using ProEventos.Domain.Models.Palestrantes;
 using ProEventos.Persistence.Data;
 using ProEventos.Persistence.Interfaces.Contratos.Palestrantes;
+using ProEventos.Persistence.Interfaces.Implementacao.Geral;
 
 namespace ProEventos.Persistence.Interfaces.Implementacao.Palestrantes
 {
-    internal class PalestrantePersistence : IPalestrantePersistence
+    internal class PalestrantePersistence : GeralPersistence, IPalestrantePersistence
     {
         private readonly ProEventosContext context;
-        public PalestrantePersistence(ProEventosContext _context)
+        public PalestrantePersistence(ProEventosContext _context) : base(_context)
         {
             context = _context;
         }
@@ -47,7 +48,7 @@ namespace ProEventos.Persistence.Interfaces.Implementacao.Palestrantes
                 .Include(p => p.RedesSociais)
                 .AsNoTracking()
                 .OrderBy(p => p.Id)
-                .Where(e => e.Nome.ToLower().Contains(_nome.ToLower()));
+                .Where(e => e.Usuario.PrimeiroNome.ToLower().Contains(_nome.ToLower()) && e.Usuario.UltimoNome.ToLower().Contains(_nome.ToLower()));
 
             if (_incluirEventos)
             {

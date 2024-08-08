@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProEventos.Application.Dtos.Lotes;
 using ProEventos.Application.Servicos.Contratos.Lotes;
 
-namespace ProEventos.API.Controllers
+namespace ProEventos.API.Controllers.Lotes
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -29,7 +29,7 @@ namespace ProEventos.API.Controllers
             catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar Lotes. Erro: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar Lotes. Erro: {ex.Message}");
             }
         }
 
@@ -47,7 +47,7 @@ namespace ProEventos.API.Controllers
             catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao alterar Lote. Erro: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao alterar Lote. Erro: {ex.Message}");
             }
         }
 
@@ -60,11 +60,11 @@ namespace ProEventos.API.Controllers
 
                 if (lote == null) return NoContent();
 
-                return await loteServices.DeleteLote(eventoId, loteId) ? Ok(new { message = "Excluido" }) : throw new Exception("Ocorreu um problema inesperado ao deletar Lote."); 
+                return await loteServices.DeleteLote(eventoId, loteId) ? Ok(new { message = "Excluido" }) : throw new Exception("Ocorreu um problema inesperado ao deletar Lote.");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir Lote. Erro: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao excluir Lote. Erro: {ex.Message}");
             }
         }
     }

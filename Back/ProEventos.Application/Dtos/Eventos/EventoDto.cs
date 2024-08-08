@@ -1,5 +1,6 @@
 ﻿using ProEventos.Application.Dtos.Lotes;
 using ProEventos.Application.Dtos.Palestrantes;
+using ProEventos.Application.Dtos.Usuarios;
 using ProEventos.Domain.Models.RedesSociais;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,6 +32,9 @@ namespace ProEventos.Application.Dtos.Eventos
          Required(ErrorMessage = "O campo {0} "),
          EmailAddress(ErrorMessage = "O campo [0} precisa ter uma contúdo válido.")]
         public string Email { get; set; }
+
+        public int UserId { get; set; }
+        public UsuarioDto UsuarioDto { get; set; }
         public IEnumerable<LoteDto> Lotes { get; set; }
         public IEnumerable<RedeSocial> RedesSociais { get; set; }
         public IEnumerable<PalestranteEventoDto> PalestrantesEventos { get; set; }

@@ -2,14 +2,15 @@
 using ProEventos.Domain.Models.Lotes;
 using ProEventos.Persistence.Data;
 using ProEventos.Persistence.Interfaces.Contratos.Lotes;
+using ProEventos.Persistence.Interfaces.Implementacao.Geral;
 
 namespace ProEventos.Persistence.Interfaces.Implementacao.Lotes
 {
-    public class LotePersistence : ILotePersistence
+    public class LotePersistence : GeralPersistence, ILotePersistence
     {
         private readonly ProEventosContext context;
 
-        public LotePersistence(ProEventosContext _context)
+        public LotePersistence(ProEventosContext _context) : base(_context)
         {
             context = _context;
         }

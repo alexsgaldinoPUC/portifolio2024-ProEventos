@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProEventos.API.Util.Extensions;
 using ProEventos.API.Util.Services.Contratos.Uploads;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 
-namespace ProEventos.API.Controllers
+namespace ProEventos.API.Controllers.Uploads
 {
 
     [ApiController]
@@ -26,7 +27,7 @@ namespace ProEventos.API.Controllers
             try
             {
                 Console.WriteLine("___________________________upload-iamge_________________________________");
-                var evento = await eventoServices.GetEventoPorIdAsync(eventoId);
+                var evento = await eventoServices.GetEventoPorIdAsync(User.GetUserId(), eventoId);
                 Console.WriteLine("////aqui////");
                 if (evento == null) return NoContent();
 
@@ -34,17 +35,17 @@ namespace ProEventos.API.Controllers
                 if (file.Length > 0)
                 {
                     uploadServices.DeleteImagem(evento.ImagemUrl, destinoImagens);
-                    evento.ImagemUrl = await uploadServices.SaveImagem(evento.Id, file, destinoImagens);  
+                    evento.ImagemUrl = await uploadServices.SaveImagem(evento.Id, file, destinoImagens);
                 }
 
-                var eventoUpdated = await eventoServices.UpdateEvento(eventoId, evento);
+                var eventoUpdated = await eventoServices.UpdateEvento(User.GetUserId(), eventoId, evento);
 
                 return Ok(eventoUpdated);
             }
             catch (Exception ex)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao criar evento. Erro: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao criar evento. Erro: {ex.Message}");
             }
         }
 

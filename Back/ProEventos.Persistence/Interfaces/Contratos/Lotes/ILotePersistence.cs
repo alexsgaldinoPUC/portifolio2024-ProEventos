@@ -1,5 +1,6 @@
 ﻿using ProEventos.Domain.Models.Eventos;
 using ProEventos.Domain.Models.Lotes;
+using ProEventos.Persistence.Interfaces.Contratos.Geral;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProEventos.Persistence.Interfaces.Contratos.Lotes
 {
-    public interface ILotePersistence
+    public interface ILotePersistence : IGeralPersistence
     {
         /// <summary>
         /// Retorna os lotes de um evento
