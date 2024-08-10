@@ -4,7 +4,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -35,8 +40,15 @@ import {
   PerfilComponent,
   UsuarioComponent,
 } from './components/usuario';
-import { EventoService, LoteService, UploadService } from './services';
+import {
+  AccountService,
+  EventoService,
+  jwtInterceptor,
+  LoteService,
+  UploadService,
+} from './services';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { HomePageComponent } from './components/home';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -51,6 +63,7 @@ defineLocale('pt-br', ptBrLocale);
     EventoDetalheComponent,
     EventoListaComponent,
     EventosComponent,
+    HomePageComponent,
     LoginComponent,
     PalestrantesComponent,
     PerfilComponent,
@@ -81,7 +94,13 @@ defineLocale('pt-br', ptBrLocale);
     }),
     TooltipModule.forRoot(),
   ],
-  providers: [EventoService, LoteService, UploadService],
+  providers: [
+    AccountService,
+    EventoService,
+    LoteService,
+    UploadService,
+    provideHttpClient(withInterceptors([jwtInterceptor])),
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

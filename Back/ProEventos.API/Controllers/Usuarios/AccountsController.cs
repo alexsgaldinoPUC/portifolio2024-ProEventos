@@ -49,7 +49,15 @@ namespace ProEventos.API.Controllers.Usuarios
 
                 var usuario = await accountServices.CreateAccount(usuarioDto);
 
-                if (usuario != null) return Ok(usuario);
+                if (usuario != null)
+                {
+                    return Ok(new
+                    {
+                        userName = usuario.UserName,
+                        primeiroNome = usuario.PrimeiroNome,
+                        token = tokenServices.CreateToken(usuario).Result
+                    }); 
+                }
 
                 return BadRequest("Falha ao criar conta!");
             }
@@ -77,7 +85,7 @@ namespace ProEventos.API.Controllers.Usuarios
                 return Ok(new
                 {
                     userName = usuario.UserName,
-                    PrimeiroNome = usuario.PrimeiroNome,
+                    primeiroNome = usuario.PrimeiroNome,
                     token = tokenServices.CreateToken(usuario).Result
                 });
             }
@@ -94,14 +102,22 @@ namespace ProEventos.API.Controllers.Usuarios
         {
             try
             {
+                if (usuarioUpdateDto.UserName != User.GetUserName()) return Unauthorized("Usuário Inváido.");
+
                 var usuario = await accountServices.GetUsuarioByUserName(User.GetUserName());
+
                 if (usuario == null) return Unauthorized("Usuário Inváido.");
 
                 var usuarioUpdated = await accountServices.UpdateAccount(usuarioUpdateDto);
 
                 if (usuarioUpdated == null) return NoContent();
 
-                return Ok(usuarioUpdated);
+                return Ok(new
+                {
+                    userName = usuarioUpdated.UserName,
+                    primeiroNome = usuarioUpdated.PrimeiroNome,
+                    token = tokenServices.CreateToken(usuarioUpdated).Result
+                });
             }
             catch (Exception ex)
             {

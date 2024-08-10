@@ -46,14 +46,14 @@ namespace ProEventos.Application.Servicos.Implementacao.Usuarios
             }
         }
 
-        public async Task<UsuarioDto> CreateAccount(UsuarioDto usuarioDto)
+        public async Task<UsuarioUpdateDto> CreateAccount(UsuarioDto usuarioDto)
         {
             try
             {
                 var usuario = mapper.Map<Usuario>(usuarioDto);
                 var createUsuario = await userManager.CreateAsync(usuario, usuarioDto.Password);
 
-                if (createUsuario.Succeeded) return mapper.Map<UsuarioDto>(usuario);
+                if (createUsuario.Succeeded) return mapper.Map<UsuarioUpdateDto>(usuario);
 
                 return null;
             }

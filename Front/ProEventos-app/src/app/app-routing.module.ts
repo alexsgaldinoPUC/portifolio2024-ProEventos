@@ -15,9 +15,13 @@ import {
   EventosComponent,
 } from './components/eventos';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+import { AuthGuard } from './services/security/guard/auth.guard';
+import { HomePageComponent } from './components/home';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
+
     path: 'usuarios',
     component: UsuarioComponent,
     children: [
@@ -27,24 +31,33 @@ const routes: Routes = [
     ],
   },
 
-
-  { path: 'eventos', redirectTo: 'eventos/lista' },
   {
-    path: 'eventos',
-    component: EventosComponent,
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     children: [
-      { path: 'detalhe/:id', component: EventoDetalheComponent },
-      { path: 'detalhe', component: EventoDetalheComponent },
-      { path: 'lista', component: EventoListaComponent },
-    ],
+      { path: 'eventos', redirectTo: 'eventos/lista' },
+      {
+        path: 'eventos',
+        component: EventosComponent,
+        children: [
+          { path: 'detalhe/:id', component: EventoDetalheComponent },
+          { path: 'detalhe', component: EventoDetalheComponent },
+          { path: 'lista', component: EventoListaComponent },
+        ],
+      },
+
+      { path: 'palestrantes', component: PalestrantesComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'contatos', component: ContatosComponent },
+
+    ]
   },
 
-  { path: 'palestrantes', component: PalestrantesComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'contatos', component: ContatosComponent },
+  { path: 'home', component: HomePageComponent },
 
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({

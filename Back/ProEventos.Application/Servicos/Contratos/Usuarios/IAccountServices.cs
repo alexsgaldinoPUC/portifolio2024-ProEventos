@@ -13,7 +13,7 @@ namespace ProEventos.Application.Servicos.Contratos.Usuarios
         Task<bool> UsuarioExists(string userName);
         Task<UsuarioUpdateDto> GetUsuarioByUserName(string userName);
         Task<SignInResult> CheckUsuarioPasswordAsync(UsuarioUpdateDto usuarioUpdateDto, string password);
-        Task<UsuarioDto> CreateAccount(UsuarioDto usuarioDto);
+        Task<UsuarioUpdateDto> CreateAccount(UsuarioDto usuarioDto);
         Task<UsuarioUpdateDto> UpdateAccount(UsuarioUpdateDto usuarioUpdateDto);
     }
 }
