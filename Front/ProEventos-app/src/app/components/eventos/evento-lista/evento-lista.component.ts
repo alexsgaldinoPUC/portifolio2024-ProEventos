@@ -71,7 +71,6 @@ export class EventoListaComponent {
   }
 
   public ngOnInit(): void {
-    this.pagination = { currentPage: 1, itemsPerPage: 2, totalItems: 1 } as Pagination
     this.carregarEventos()
   }
 
