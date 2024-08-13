@@ -5,6 +5,7 @@ using ProEventos.API.Util.Services.Contratos.Uploads;
 using ProEventos.Application.Dtos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Usuarios;
+using ProEventos.Global.Models.Paginator;
 
 namespace ProEventos.API.Controllers.Eventos
 {
@@ -26,13 +27,15 @@ namespace ProEventos.API.Controllers.Eventos
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTodosEventos()
+        public async Task<IActionResult> GetTodosEventos([FromQuery]PageParams _pageParams)
         {
             try
             {
-                var eventos = await eventosServices.GetTodosEventosAsync(User.GetUserId(), true);
+                var eventos = await eventosServices.GetTodosEventosAsync(User.GetUserId(), _pageParams, true);
 
                 if (eventos == null) return NoContent();
+
+                Response.AddPagination(eventos.CurrentPage, eventos.PageSize, eventos.TotalCount, eventos.TotalPages);
 
                 return Ok(eventos);
             }
@@ -58,24 +61,6 @@ namespace ProEventos.API.Controllers.Eventos
             {
 
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar evento por id. Erro: {ex.Message}");
-            }
-        }
-
-        [HttpGet("{tema}/tema")]
-        public async Task<IActionResult> GetTodosEventosPorTema(string tema)
-        {
-            try
-            {
-                var eventos = await eventosServices.GetTodosEventosPorTemaAsync(User.GetUserId(), tema, true);
-
-                if (eventos == null) return NoContent();
-
-                return Ok(eventos);
-            }
-            catch (Exception ex)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao recuperar evento por tema. Erro: {ex.Message}");
             }
         }
 

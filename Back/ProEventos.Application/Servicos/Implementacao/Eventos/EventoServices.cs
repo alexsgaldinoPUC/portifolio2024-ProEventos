@@ -3,6 +3,7 @@ using ProEventos.Application.Dtos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Lotes;
 using ProEventos.Domain.Models.Eventos;
+using ProEventos.Global.Models.Paginator;
 using ProEventos.Persistence.Interfaces.Contratos.Eventos;
 using ProEventos.Persistence.Interfaces.Contratos.Geral;
 using ProEventos.Persistence.Interfaces.Contratos.Lotes;
@@ -82,37 +83,24 @@ namespace ProEventos.Application.Servicos.Implementacao.Eventos
             }
         }
 
-        public async Task<EventoDto[]> GetTodosEventosAsync(int _userId, bool _incluirPalestrantes = false)
+        public async Task<PageList<EventoDto>> GetTodosEventosAsync(int _userId, PageParams _pageParams, bool _incluirPalestrantes = false)
         {
             try
             {
-                var eventos = await eventosPersistence.GetTodosEventosAsync(_userId, _incluirPalestrantes);
+                var eventos = await eventosPersistence.GetTodosEventosAsync(_userId, _pageParams, _incluirPalestrantes);
 
                 if (eventos == null) return null;
 
-                var eventosDto = mapper.Map<EventoDto[]>(eventos);
+                var eventosDto = mapper.Map<PageList<EventoDto>>(eventos);
+
+                eventosDto.CurrentPage = eventos.CurrentPage;
+                eventosDto.TotalPages = eventos.TotalPages;
+                eventosDto.PageSize = eventos.PageSize;
+                eventosDto.TotalCount = eventos.TotalCount;
 
                 return eventosDto;
             }
             catch(Exception ex)
-            {
-                throw new Exception($"{ex.Message}");
-            }
-        }
-
-        public async Task<EventoDto[]> GetTodosEventosPorTemaAsync(int _userId, string _tema, bool _incluirPalestrantes = false)
-        {
-            try
-            {
-                var eventos = await eventosPersistence.GetTodosEventosPorTemaAsync(_userId, _tema, _incluirPalestrantes);
-
-                if (eventos == null) return null;
-
-                var eventosDto = mapper.Map<EventoDto[]>(eventos);
-
-                return eventosDto;
-            }
-            catch (Exception ex)
             {
                 throw new Exception($"{ex.Message}");
             }

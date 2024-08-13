@@ -9,6 +9,7 @@ using ProEventos.Domain.Models.Lotes;
 using ProEventos.Domain.Models.Palestrantes;
 using ProEventos.Domain.Models.RedesSociais;
 using ProEventos.Domain.Models.Usuarios;
+using ProEventos.Global.Models.Paginator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,6 @@ namespace ProEventos.Application.Config
             CreateMap<Usuario, UsuarioDto>().ReverseMap();
             CreateMap<Usuario, UsuarioLoginDto>().ReverseMap();
             CreateMap<Usuario, UsuarioUpdateDto>().ReverseMap();
-
         }
     }
 }

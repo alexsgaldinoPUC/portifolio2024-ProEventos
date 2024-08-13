@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProEventos.Application\ProEventos.Application.csproj" />
+    <ProjectReference Include="..\ProEventos.Global\ProEventos.Global.csproj" />
   </ItemGroup>
 
   <ItemGroup>

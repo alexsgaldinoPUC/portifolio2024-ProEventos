@@ -1,4 +1,3 @@
-
 <div class="card shadow-sm p-2">
   <div class="input-group mb-2">
     <label class="btn btn-outline-dark">Filtro: </label>
@@ -6,9 +5,13 @@
       type="text"
       class="form-control mr-2"
       placeholder="buscar tema e local"
-      [(ngModel)]="filtroLista"
+      (input)="filtrarEventos($event.target)"
     />
-    <a class="btn btn-outline-info ms-1" tooltip="Novo Evento" routerLink="/eventos/detalhe">
+    <a
+      class="btn btn-outline-info ms-1"
+      tooltip="Novo Evento"
+      routerLink="/eventos/detalhe"
+    >
       <i class="fa fa-plus-circle"></i>
     </a>
   </div>
@@ -39,7 +42,7 @@
     </thead>
     @if (eventos && eventos.length) {
     <tbody>
-      @for (evento of eventosFiltrados; track $index) {
+      @for (evento of eventos; track $index) {
       <tr (click)="detalheEvento(evento.id)" role="button">
         <td class="d-none d-lg-table-cell">
           <img
@@ -78,11 +81,27 @@
     </tfoot>
     }
   </table>
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+
+      [totalItems]="pagination.totalItems"
+      pageBtnClass="btn"
+      (pageChanged)="pageChanged($event)"
+      [(ngModel)]="pagination.currentPage"
+      [itemsPerPage]="pagination.itemsPerPage"
+    >
+    </pagination>
+  </div>
 </div>
 
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Confirma a exclusão do evento de código {{this.eventoId}} ?</p>
+    <p>Confirma a exclusão do evento de código {{ this.eventoId }} ?</p>
     <button type="button" class="btn btn-default" (click)="confirm()">
       Sim
     </button>
@@ -91,4 +110,3 @@
     </button>
   </div>
 </ng-template>
-

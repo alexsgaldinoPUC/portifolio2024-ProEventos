@@ -1,4 +1,5 @@
 ﻿using ProEventos.Domain.Models.Eventos;
+using ProEventos.Global.Models.Paginator;
 using ProEventos.Persistence.Interfaces.Contratos.Geral;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,7 @@ namespace ProEventos.Persistence.Interfaces.Contratos.Eventos
 {
     public interface IEventoPersistence : IGeralPersistence
     {
-        Task<Evento[]> GetTodosEventosPorTemaAsync(int userId, string _tema, bool _incluirPalestrantes = false);
-        Task<Evento[]> GetTodosEventosAsync(int userId, bool _incluirPalestrantes = false);
-        Task<Evento> GetEventoPorIdAsync(int userId, int _eventoId, bool _incluirPalestrantes = false);
+        Task<PageList<Evento>> GetTodosEventosAsync(int _userId, PageParams _pageParams, bool _incluirPalestrantes = false);
+        Task<Evento> GetEventoPorIdAsync(int _userId, int _eventoId, bool _incluirPalestrantes = false);
     }
 }

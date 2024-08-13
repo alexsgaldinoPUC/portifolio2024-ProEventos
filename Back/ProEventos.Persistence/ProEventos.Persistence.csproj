@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProEventos.Domain\ProEventos.Domain.csproj" />
+    <ProjectReference Include="..\ProEventos.Global\ProEventos.Global.csproj" />
   </ItemGroup>
 
 </Project>

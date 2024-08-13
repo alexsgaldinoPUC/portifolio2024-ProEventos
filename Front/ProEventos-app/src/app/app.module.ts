@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  HTTP_INTERCEPTORS,
   HttpClientModule,
   provideHttpClient,
   withInterceptors,
@@ -18,28 +17,32 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
 
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+
 import { DateTimeFormatPipe } from './util/pipes';
 
-import { BarraTituloComponent } from './components/shared/barraTitulo/barraTitulo.component';
-import { ContatosComponent } from './components/contatos/contatos.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { NavComponent } from './components/shared/nav/nav.component';
-import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
-import {
-  EventoDetalheComponent,
-  EventoListaComponent,
-  EventosComponent,
-} from './components/eventos';
+import { BarraTituloComponent, NavComponent } from './components/shared';
 import {
   CadastroComponent,
   LoginComponent,
   PerfilComponent,
   UsuarioComponent,
 } from './components/usuario';
+import { ContatosComponent } from './components/contatos/contatos.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+import {
+  EventoDetalheComponent,
+  EventoListaComponent,
+  EventosComponent,
+} from './components/eventos';
+import { HomePageComponent } from './components/home';
+
 import {
   AccountService,
   EventoService,
@@ -47,8 +50,6 @@ import {
   LoteService,
   UploadService,
 } from './services';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { HomePageComponent } from './components/home';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -84,6 +85,7 @@ defineLocale('pt-br', ptBrLocale);
     NgxSpinnerModule.forRoot({
       type: 'ball-climbing-dot',
     }),
+    PaginationModule.forRoot(),
     ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 5000,

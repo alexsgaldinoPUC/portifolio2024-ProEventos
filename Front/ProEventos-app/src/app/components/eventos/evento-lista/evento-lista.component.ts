@@ -8,6 +8,9 @@ import { Evento } from '../../../interfaces/models';
 import { EventoService } from '../../../services/evento';
 import { Router } from '@angular/router';
 import { environment } from '../../../../assets/environments/environment';
+import { Pagination } from '../../../interfaces/models/pagination/Pagination';
+import { PaginatedResult } from '../../../interfaces/models/pagination/PaginatedResult';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-evento-lista',
@@ -21,15 +24,16 @@ export class EventoListaComponent {
   #spinnerService = inject(NgxSpinnerService);
   #toastrService = inject(ToastrService);
 
-  public modalRef = {} as BsModalRef;
+  public pagination = {} as Pagination;
+
+  private modalRef = {} as BsModalRef;
 
   public eventos = [] as Evento[];
-  public eventosFiltrados = [] as Evento[];
   public eventoId = 0;
 
   public mostrarImagem = false;
 
-  private filtroListado = "";
+  private termoBuscaChanged: Subject<string> = new Subject<string>();
 
   public alternarImagem(): void {
     this.mostrarImagem = !this.mostrarImagem;
@@ -39,24 +43,35 @@ export class EventoListaComponent {
     return (imagemUrl !== "" ? `${environment.imagemEventosURL}${imagemUrl}` : environment.imageDefault)
   }
 
-  public get filtroLista(): string {
-    return this.filtroListado;
-  }
+  public filtrarEventos(event: any): void {
+    if (this.termoBuscaChanged.observers.length == 0) {
+      this.termoBuscaChanged.pipe(debounceTime(1000))
+      .subscribe({
+        next: (filtrarPor) => {
+            this.#spinnerService.show();
 
-  public set filtroLista(argumento: string)  {
-    this.filtroListado = argumento
-    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
-  }
+            this.#eventoService.getEventos(this.pagination.currentPage, this.pagination.itemsPerPage, filtrarPor)
+              .subscribe({
+                next: (paginatedResponse: PaginatedResult<Evento[]>) => {
+                  console.log(paginatedResponse)
+                  this.pagination= paginatedResponse.pagination!;
+                  this.eventos = paginatedResponse.result!;
+                },
+                error: error => {
+                  console.log(error);
+                  this.#toastrService.error("Falha ao recuperar eventos.", "Erro!")
+                }
+              })
+              .add(() => this.#spinnerService.hide());
+          }
+        })
+      }
 
-  public filtrarEventos(filtrarPor: string): Evento[] {
-    filtrarPor = filtrarPor.toLocaleLowerCase();
-    return this.eventos.filter(
-      (evento: any) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1  ||
-                       evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-    );
+      this.termoBuscaChanged.next(event.value)
   }
 
   public ngOnInit(): void {
+    this.pagination = { currentPage: 1, itemsPerPage: 2, totalItems: 1 } as Pagination
     this.carregarEventos()
   }
 
@@ -64,11 +79,12 @@ export class EventoListaComponent {
     this.#spinnerService.show();
 
     this.#eventoService
-      .getEventos()
+      .getEventos(this.pagination.currentPage, this.pagination.itemsPerPage)
       .subscribe({
-        next: (eventos: Evento[]) => {
-          this.eventos = eventos;
-          this.eventosFiltrados = this.eventos;
+        next: (paginatedResponse: PaginatedResult<Evento[]>) => {
+          console.log(paginatedResponse)
+          this.pagination= paginatedResponse.pagination!;
+          this.eventos = paginatedResponse.result!;
         },
         error: error => {
           console.log(error);
@@ -112,5 +128,11 @@ export class EventoListaComponent {
 
   public detalheEvento(id: number): void {
     this.#router.navigate([`eventos/detalhe/${id}`])
+  }
+
+  public pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    console.log("event ", event.page);
+    this.carregarEventos();
   }
 }

@@ -16,7 +16,7 @@ export class AccountService {
   public baseUrl = `${environment.apiURL}Accounts/`;
 
   public login(_model: any): Observable<void> {
-    return this.#http.post<Usuario>(this.baseUrl + '/login', _model)
+    return this.#http.post<Usuario>(this.baseUrl + 'login', _model)
       .pipe(take(1), map((usuario: Usuario) => {
         if (usuario) {
           this.setCurrentUser(usuario);

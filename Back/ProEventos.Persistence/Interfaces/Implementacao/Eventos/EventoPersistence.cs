@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain.Models.Eventos;
+using ProEventos.Global.Models.Paginator;
 using ProEventos.Persistence.Data;
 using ProEventos.Persistence.Interfaces.Contratos.Eventos;
 using ProEventos.Persistence.Interfaces.Contratos.Lotes;
@@ -16,7 +17,7 @@ namespace ProEventos.Persistence.Interfaces.Implementacao.Eventos
             context = _context;
         }
 
-        public async Task<Evento> GetEventoPorIdAsync(int userId, int _eventoId, bool _incluirPalestrantes = false)
+        public async Task<Evento> GetEventoPorIdAsync(int _userId, int _eventoId, bool _incluirPalestrantes = false)
         {
             IQueryable<Evento> query = context.Eventos
                 .Include(e => e.Lotes)
@@ -32,35 +33,21 @@ namespace ProEventos.Persistence.Interfaces.Implementacao.Eventos
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<Evento[]> GetTodosEventosAsync(int userId, bool _incluirPalestrantes = false)
+        public async Task<PageList<Evento>> GetTodosEventosAsync(int _userId, PageParams _pageParams, bool _incluirPalestrantes = false)
         {
             IQueryable<Evento> query = context.Eventos
                 .Include(e => e.Lotes)
                 .Include(e => e.RedesSociais)
                 .AsNoTracking()
-                .Where(e => e.UserId == userId && e.UserId == userId)
-                .OrderBy(e => e.Id);
-
-            if (_incluirPalestrantes) {
-                query = query.Include(e => e.PalestrantesEventos).ThenInclude(pe => pe.Palestrante);
-            }
-            return await query.ToArrayAsync();
-        }
-
-        public async Task<Evento[]> GetTodosEventosPorTemaAsync(int userId, string _tema, bool _incluirPalestrantes = false)
-        {
-            IQueryable<Evento> query = context.Eventos
-                .Include(e => e.Lotes)
-                .Include(e => e.RedesSociais)
-                .AsNoTracking()
-                .Where(e => e.Tema.ToLower().Contains(_tema.ToLower()) && e.UserId == userId)
+                .Where(e => (e.Tema.ToLower().Contains(_pageParams.Term.ToLower()) || 
+                             e.Local.ToLower().Contains(_pageParams.Term.ToLower())) && e.UserId == _userId)
                 .OrderBy(e => e.Id);
 
             if (_incluirPalestrantes)
             {
                 query = query.Include(e => e.PalestrantesEventos).ThenInclude(pe => pe.Palestrante);
             }
-            return await query.ToArrayAsync();
+            return await PageList<Evento>.CreateAsync(query, _pageParams.PageNumber, _pageParams.pageSize);
         }
     }
 }

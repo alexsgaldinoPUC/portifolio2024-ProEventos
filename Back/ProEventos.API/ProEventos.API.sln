@@ -5,11 +5,13 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEventos.API", "ProEventos.API.csproj", "{D58C16CC-CBB0-4677-BA02-9D1E555639A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Application", "..\ProEventos.Application\ProEventos.Application.csproj", "{E1743329-6A1B-463C-8E5E-5E770FCFC961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEventos.Application", "..\ProEventos.Application\ProEventos.Application.csproj", "{E1743329-6A1B-463C-8E5E-5E770FCFC961}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Domain", "..\ProEventos.Domain\ProEventos.Domain.csproj", "{600C0637-4D1E-4798-B2B4-C33FFC174F5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEventos.Domain", "..\ProEventos.Domain\ProEventos.Domain.csproj", "{600C0637-4D1E-4798-B2B4-C33FFC174F5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Persistence", "..\ProEventos.Persistence\ProEventos.Persistence.csproj", "{816F33F1-1562-483A-B255-291A509FD971}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEventos.Persistence", "..\ProEventos.Persistence\ProEventos.Persistence.csproj", "{816F33F1-1562-483A-B255-291A509FD971}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Global", "..\ProEventos.Global\ProEventos.Global.csproj", "{8CC5E562-5AF0-4031-9DAD-9FF9037F2141}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{816F33F1-1562-483A-B255-291A509FD971}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{816F33F1-1562-483A-B255-291A509FD971}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{816F33F1-1562-483A-B255-291A509FD971}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CC5E562-5AF0-4031-9DAD-9FF9037F2141}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CC5E562-5AF0-4031-9DAD-9FF9037F2141}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CC5E562-5AF0-4031-9DAD-9FF9037F2141}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CC5E562-5AF0-4031-9DAD-9FF9037F2141}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
