@@ -2,6 +2,7 @@
 using ProEventos.Application.Dtos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Lotes;
+using ProEventos.Application.Servicos.Contratos.Palestrantes;
 using ProEventos.Domain.Models.Eventos;
 using ProEventos.Global.Models.Paginator;
 using ProEventos.Persistence.Interfaces.Contratos.Eventos;
@@ -12,13 +13,11 @@ namespace ProEventos.Application.Servicos.Implementacao.Eventos
 {
     public class EventoServices : IEventoServices
     {
-        private readonly IGeralPersistence geralPersistence;
         private readonly IEventoPersistence eventosPersistence;
         private readonly IMapper mapper;
 
-        public EventoServices(IGeralPersistence _geralPersistence, IEventoPersistence _eventosPersistence, IMapper _mapper)
+        public EventoServices(IEventoPersistence _eventosPersistence, IMapper _mapper)
         {
-            geralPersistence = _geralPersistence;
             eventosPersistence = _eventosPersistence;
             mapper = _mapper;
         }
@@ -30,9 +29,9 @@ namespace ProEventos.Application.Servicos.Implementacao.Eventos
 
                 evento.UserId = userId;
 
-                geralPersistence.Add<Evento>(evento);
+                eventosPersistence.Add<Evento>(evento);
 
-                if (await geralPersistence.SaveChangesAsync())
+                if (await eventosPersistence.SaveChangesAsync())
                 {
                     var eventoRetorno = await eventosPersistence.GetEventoPorIdAsync(userId, evento.Id, false);
                     var eventoDtoRetorno = mapper.Map<EventoDto>(eventoRetorno);
@@ -55,9 +54,9 @@ namespace ProEventos.Application.Servicos.Implementacao.Eventos
 
                 if (evento == null) throw new Exception("Evento não encontrado para deleção.");
 
-                geralPersistence.Delete<Evento>(evento);
+                eventosPersistence.Delete<Evento>(evento);
 
-                return await geralPersistence.SaveChangesAsync();
+                return await eventosPersistence.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -119,9 +118,9 @@ namespace ProEventos.Application.Servicos.Implementacao.Eventos
 
                 mapper.Map(_eventoDto, evento);
 
-                geralPersistence.Update<Evento>(evento);
+                eventosPersistence.Update<Evento>(evento);
 
-                if (await geralPersistence.SaveChangesAsync())
+                if (await eventosPersistence.SaveChangesAsync())
                 {
                     var eventoRetorno = await eventosPersistence.GetEventoPorIdAsync(userId, evento.Id, false);
                     var eventoDtoRetorno = mapper.Map<EventoDto>(eventoRetorno);

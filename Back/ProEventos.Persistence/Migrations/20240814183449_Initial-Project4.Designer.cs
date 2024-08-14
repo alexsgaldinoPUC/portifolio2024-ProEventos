@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProEventos.Persistence.Data;
 
@@ -10,9 +11,11 @@ using ProEventos.Persistence.Data;
 namespace ProEventos.Persistence.Migrations
 {
     [DbContext(typeof(ProEventosContext))]
-    partial class ProEventosContextModelSnapshot : ModelSnapshot
+    [Migration("20240814183449_Initial-Project4")]
+    partial class InitialProject4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
@@ -212,13 +215,13 @@ namespace ProEventos.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("EventoId")
+                    b.Property<int>("EventoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PalestranteId")
+                    b.Property<int>("PalestranteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("URL")
@@ -449,12 +452,14 @@ namespace ProEventos.Persistence.Migrations
                     b.HasOne("ProEventos.Domain.Models.Eventos.Evento", "Evento")
                         .WithMany("RedesSociais")
                         .HasForeignKey("EventoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProEventos.Domain.Models.Palestrantes.Palestrante", "Palestrante")
                         .WithMany("RedesSociais")
                         .HasForeignKey("PalestranteId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Evento");
 

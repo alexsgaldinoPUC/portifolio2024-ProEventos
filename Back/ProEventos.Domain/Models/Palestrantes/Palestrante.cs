@@ -8,7 +8,7 @@ namespace ProEventos.Domain.Models.Palestrantes
         public int Id { get; set; }
         public string MiniCurriculo { get; set; }
         public int UserId { get; set; }
-        public Usuario Usuario { get; set; }
+        public Usuario User { get; set; }
         public IEnumerable<RedeSocial> RedesSociais { get; set; }
         public IEnumerable<PalestranteEvento> PalestrantesEventos { get; set; }
     }

@@ -8,9 +8,9 @@ namespace ProEventos.Application.Dtos.RedesSociais
         public int Id { get; set; }
         public string Nome { get; set; }
         public string URL { get; set; }
-        public int EventoId { get; set; }
+        public int? EventoId { get; set; }
         public EventoDto Evento { get; set; }
-        public int PalstranteId { get; set; }
+        public int? palestranteId { get; set; }
         public PalestranteDto Palestrante { get; set; }
     }
 }

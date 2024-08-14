@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ProEventos.Application.Dtos.Lotes;
 using ProEventos.Application.Servicos.Contratos.Lotes;
+using ProEventos.Application.Servicos.Implementacao.RedesSociais;
 using ProEventos.Domain.Models.Lotes;
 using ProEventos.Persistence.Interfaces.Contratos.Geral;
 using ProEventos.Persistence.Interfaces.Contratos.Lotes;
@@ -10,13 +11,11 @@ namespace ProEventos.Application.Servicos.Implementacao.Lotes
 {
     public class LoteServices : ILoteServices
     {
-        private readonly IGeralPersistence geralPersistence;
         private readonly ILotePersistence lotePersistence;
         private readonly IMapper mapper;
 
-        public LoteServices(IGeralPersistence _geralPersistence, ILotePersistence _lotePersistence, IMapper _mapper)
+        public LoteServices(ILotePersistence _lotePersistence, IMapper _mapper)
         {
-            geralPersistence = _geralPersistence;
             lotePersistence = _lotePersistence;
             mapper = _mapper;
         }
@@ -28,9 +27,9 @@ namespace ProEventos.Application.Servicos.Implementacao.Lotes
 
                 if (lote == null) throw new Exception("Lote não encontrado para deleção.");
 
-                geralPersistence.Delete<Lote>(lote);
+                lotePersistence.Delete<Lote>(lote);
 
-                return await geralPersistence.SaveChangesAsync();
+                return await lotePersistence.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -92,9 +91,9 @@ namespace ProEventos.Application.Servicos.Implementacao.Lotes
                         lote.EventoId = _eventoId;
 
 
-                        geralPersistence.Update(lote);
+                        lotePersistence.Update(lote);
 
-                        await geralPersistence.SaveChangesAsync();
+                        await lotePersistence.SaveChangesAsync();
 
                     } else
                     {
@@ -107,10 +106,10 @@ namespace ProEventos.Application.Servicos.Implementacao.Lotes
                         string json = JsonSerializer.Serialize(lote);
 
                         Console.WriteLine(json);
-                        
-                        geralPersistence.Update(lote);
 
-                        await geralPersistence.SaveChangesAsync();
+                        lotePersistence.Update(lote);
+
+                        await lotePersistence.SaveChangesAsync();
                     }
                 }
 

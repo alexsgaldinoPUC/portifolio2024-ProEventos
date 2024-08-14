@@ -8,19 +8,27 @@ using ProEventos.API.Util.Services.Contratos.Uploads;
 using ProEventos.API.Util.Services.Implementacao.Uploads;
 using ProEventos.Application.Servicos.Contratos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Lotes;
+using ProEventos.Application.Servicos.Contratos.Palestrantes;
+using ProEventos.Application.Servicos.Contratos.RedesSociais;
 using ProEventos.Application.Servicos.Contratos.Usuarios;
 using ProEventos.Application.Servicos.Implementacao.Eventos;
 using ProEventos.Application.Servicos.Implementacao.Lotes;
+using ProEventos.Application.Servicos.Implementacao.Palestrantes;
+using ProEventos.Application.Servicos.Implementacao.RedesSociais;
 using ProEventos.Application.Servicos.Implementacao.Usuarios;
 using ProEventos.Domain.Models.Usuarios;
 using ProEventos.Persistence.Data;
 using ProEventos.Persistence.Interfaces.Contratos.Eventos;
 using ProEventos.Persistence.Interfaces.Contratos.Geral;
 using ProEventos.Persistence.Interfaces.Contratos.Lotes;
+using ProEventos.Persistence.Interfaces.Contratos.Palestrantes;
+using ProEventos.Persistence.Interfaces.Contratos.RedesSociais;
 using ProEventos.Persistence.Interfaces.Contratos.Usuarios;
 using ProEventos.Persistence.Interfaces.Implementacao.Eventos;
 using ProEventos.Persistence.Interfaces.Implementacao.Geral;
 using ProEventos.Persistence.Interfaces.Implementacao.Lotes;
+using ProEventos.Persistence.Interfaces.Implementacao.Palestrantes;
+using ProEventos.Persistence.Interfaces.Implementacao.RedesSociais;
 using ProEventos.Persistence.Interfaces.Implementacao.Usuarios;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -73,12 +81,16 @@ builder.Services.AddScoped<IEventoServices, EventoServices>()
                 .AddScoped<ILoteServices, LoteServices>()
                 .AddScoped<IUploadServices, UploadServices>()
                 .AddScoped<ITokenServices, TokenServices>()
-                .AddScoped<IAccountServices, AccountServices>();
+                .AddScoped<IAccountServices, AccountServices>()
+                .AddScoped<IPalestranteServices, PalestranteServices>()
+                .AddScoped<IRedeSocialServices, RedeSocialServices>();
 
 builder.Services.AddScoped<IGeralPersistence, GeralPersistence>()
                 .AddScoped<IEventoPersistence, EventoPersistence>()
                 .AddScoped<ILotePersistence, LotePersistence>()
-                .AddScoped<IUsuarioPersistence, UsuarioPersistence>();
+                .AddScoped<IUsuarioPersistence, UsuarioPersistence>()
+                .AddScoped<IPalestrantePersistence, PalestrantePersistence>()
+                .AddScoped<IRedeSocialPersistence, RedeSocialPersistence>();
 
 // Add cors polyce
 builder.Services.AddCors(options =>

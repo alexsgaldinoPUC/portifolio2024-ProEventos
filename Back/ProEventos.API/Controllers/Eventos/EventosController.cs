@@ -4,6 +4,7 @@ using ProEventos.API.Util.Extensions;
 using ProEventos.API.Util.Services.Contratos.Uploads;
 using ProEventos.Application.Dtos.Eventos;
 using ProEventos.Application.Servicos.Contratos.Eventos;
+using ProEventos.Application.Servicos.Contratos.Palestrantes;
 using ProEventos.Application.Servicos.Contratos.Usuarios;
 using ProEventos.Global.Models.Paginator;
 

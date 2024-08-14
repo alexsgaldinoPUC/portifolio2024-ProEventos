@@ -6,133 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProEventos.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateIdentity : Migration
+    public partial class InitialProject2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Email",
-                table: "Palestrantes");
-
-            migrationBuilder.DropColumn(
-                name: "ImagemUrL",
-                table: "Palestrantes");
-
-            migrationBuilder.DropColumn(
-                name: "Nome",
-                table: "Palestrantes");
-
-            migrationBuilder.DropColumn(
-                name: "Telefone",
-                table: "Palestrantes");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "URL",
-                table: "RedesSociais",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "PalestranteId",
-                table: "RedesSociais",
-                type: "INTEGER",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "INTEGER");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Nome",
-                table: "RedesSociais",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "MiniCurriculo",
-                table: "Palestrantes",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "Palestrantes",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "UsuarioId",
-                table: "Palestrantes",
-                type: "INTEGER",
-                nullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Nome",
-                table: "Lotes",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Tema",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Telefone",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Local",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "ImagemUrl",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Email",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "TEXT");
-
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "Eventos",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "UsuarioId",
-                table: "Eventos",
-                type: "INTEGER",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -286,15 +164,127 @@ namespace ProEventos.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Palestrantes_UsuarioId",
-                table: "Palestrantes",
-                column: "UsuarioId");
+            migrationBuilder.CreateTable(
+                name: "Eventos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Local = table.Column<string>(type: "TEXT", nullable: true),
+                    DataEvento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Tema = table.Column<string>(type: "TEXT", nullable: true),
+                    QtdePessoas = table.Column<int>(type: "INTEGER", nullable: false),
+                    ImagemUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    Telefone = table.Column<string>(type: "TEXT", nullable: true),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Eventos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Eventos_AspNetUsers_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Eventos_UsuarioId",
-                table: "Eventos",
-                column: "UsuarioId");
+            migrationBuilder.CreateTable(
+                name: "Palestrantes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    MiniCurriculo = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Palestrantes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Palestrantes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lotes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    Preco = table.Column<decimal>(type: "TEXT", nullable: false),
+                    DataInicioLote = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataFimLote = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
+                    EventoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lotes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Lotes_Eventos_EventoId",
+                        column: x => x.EventoId,
+                        principalTable: "Eventos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PalestrantesEventos",
+                columns: table => new
+                {
+                    PalestranteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EventoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PalestrantesEventos", x => new { x.EventoId, x.PalestranteId });
+                    table.ForeignKey(
+                        name: "FK_PalestrantesEventos_Eventos_EventoId",
+                        column: x => x.EventoId,
+                        principalTable: "Eventos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PalestrantesEventos_Palestrantes_PalestranteId",
+                        column: x => x.PalestranteId,
+                        principalTable: "Palestrantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RedesSociais",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    URL = table.Column<string>(type: "TEXT", nullable: true),
+                    EventoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PalestranteId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RedesSociais", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RedesSociais_Eventos_EventoId",
+                        column: x => x.EventoId,
+                        principalTable: "Eventos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RedesSociais_Palestrantes_PalestranteId",
+                        column: x => x.PalestranteId,
+                        principalTable: "Palestrantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -333,32 +323,40 @@ namespace ProEventos.Persistence.Migrations
                 column: "NormalizedUserName",
                 unique: true);
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Eventos_AspNetUsers_UsuarioId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Eventos_UsuarioId",
                 table: "Eventos",
-                column: "UsuarioId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id");
+                column: "UsuarioId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Palestrantes_AspNetUsers_UsuarioId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Lotes_EventoId",
+                table: "Lotes",
+                column: "EventoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Palestrantes_UserId",
                 table: "Palestrantes",
-                column: "UsuarioId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PalestrantesEventos_PalestranteId",
+                table: "PalestrantesEventos",
+                column: "PalestranteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RedesSociais_EventoId",
+                table: "RedesSociais",
+                column: "EventoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RedesSociais_PalestranteId",
+                table: "RedesSociais",
+                column: "PalestranteId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Eventos_AspNetUsers_UsuarioId",
-                table: "Eventos");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Palestrantes_AspNetUsers_UsuarioId",
-                table: "Palestrantes");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -375,162 +373,25 @@ namespace ProEventos.Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Lotes");
+
+            migrationBuilder.DropTable(
+                name: "PalestrantesEventos");
+
+            migrationBuilder.DropTable(
+                name: "RedesSociais");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Eventos");
+
+            migrationBuilder.DropTable(
+                name: "Palestrantes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Palestrantes_UsuarioId",
-                table: "Palestrantes");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Eventos_UsuarioId",
-                table: "Eventos");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Palestrantes");
-
-            migrationBuilder.DropColumn(
-                name: "UsuarioId",
-                table: "Palestrantes");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Eventos");
-
-            migrationBuilder.DropColumn(
-                name: "UsuarioId",
-                table: "Eventos");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "URL",
-                table: "RedesSociais",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<int>(
-                name: "PalestranteId",
-                table: "RedesSociais",
-                type: "INTEGER",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "INTEGER",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Nome",
-                table: "RedesSociais",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "MiniCurriculo",
-                table: "Palestrantes",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Email",
-                table: "Palestrantes",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "ImagemUrL",
-                table: "Palestrantes",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Nome",
-                table: "Palestrantes",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Telefone",
-                table: "Palestrantes",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Nome",
-                table: "Lotes",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Tema",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Telefone",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Local",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "ImagemUrl",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Email",
-                table: "Eventos",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "TEXT",
-                oldNullable: true);
         }
     }
 }
