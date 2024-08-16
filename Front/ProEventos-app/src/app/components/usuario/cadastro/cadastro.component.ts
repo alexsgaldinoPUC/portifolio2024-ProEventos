@@ -36,8 +36,8 @@ export class CadastroComponent {
       validators: FormValidator.argsCompare('password', 'confirmarPassword')
     }
     this.formCadastro = this.#formBuilder.group({
-      nome: ['', Validators.required],
-      sobrenome: ['', Validators.required],
+      primeiroNome: ['', Validators.required],
+      ultimoNome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],

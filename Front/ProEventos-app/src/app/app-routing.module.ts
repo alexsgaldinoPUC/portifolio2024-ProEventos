@@ -14,9 +14,9 @@ import {
   EventoListaComponent,
   EventosComponent,
 } from './components/eventos';
-import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 import { AuthGuard } from './services/security/guard/auth.guard';
 import { HomePageComponent } from './components/home';
+import { PalestranteListaComponent, PalestrantesComponent } from './components/palestrantes';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -47,7 +47,14 @@ const routes: Routes = [
         ],
       },
 
-      { path: 'palestrantes', component: PalestrantesComponent },
+      { path: 'palestrantes', redirectTo: 'palestrantes/lista' },
+      {
+        path: 'palestrantes',
+        component: PalestrantesComponent,
+        children: [
+          { path: 'lista', component: PalestranteListaComponent },
+        ],
+      },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'contatos', component: ContatosComponent },
 

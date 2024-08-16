@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <Folder Include="Recursos\Imagens\" />
+    <Folder Include="Recursos\Perfil\" />
   </ItemGroup>
 
 </Project>

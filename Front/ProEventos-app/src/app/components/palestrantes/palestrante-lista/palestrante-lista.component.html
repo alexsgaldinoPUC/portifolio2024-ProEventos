@@ -1,0 +1,71 @@
+<div class="card shadow-sm p-2">
+  <div class="input-group mb-2">
+    <label class="btn btn-outline-dark">Filtro: </label>
+    <input
+      type="text"
+      class="form-control mr-2"
+      placeholder="buscar nome e mini currículo"
+      (input)="filtrarPalestrantes($event.target)"
+    />
+  </div>
+  @if (palestrantes && palestrantes.length) {
+    <div class="row mt-2">
+    @for (palestrante of palestrantes; track $index) {
+        <div class="col-md-4 mb-4 d-flex align-items-stretch">
+          <div class="card">
+            <div class="card-header p-2 bg-secondary text-center text-white">
+              Palestrante Card
+            </div>
+            <div class="d-flex align-self-center pt-3">
+              <a>
+                <img
+                  [src]="getImagemURL(palestrante.user.imagemURL)"
+                  width="120"
+                  height="120"
+                  class="rounded-circle"
+                />
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="h7 text-center mb-3"> <i class="fa fa-at"></i> {{ palestrante.user.primeiroNome }}</div>
+              <div class="h7 text-bold pb-1">
+                <b>Título: </b>{{ palestrante.user.titulo }}
+                <br>
+                <b>Nome: </b>{{ palestrante.user.primeiroNome }} {{ palestrante.user.ultimoNome }}
+                <br>
+                <b>e-mail: </b>{{ palestrante.user.email }}
+                <br>
+                <b>Conta: </b>{{ palestrante.user.userName }}
+                <br>
+                <b>Contato: </b>{{ palestrante.user.phoneNumber }}
+                <br>
+                <b>Função: </b>{{ palestrante.user.funcao }}
+                <hr>
+              </div>
+              <div class="h7">
+                {{ palestrante.miniCurriculo }}
+              </div>
+            </div>
+            <div class="card-footer bg-secondary p-1">
+              <ul class="list-group list-group-flush ">
+                <li class="list-group-item bg-secondary ">
+                  <div class="row">
+                    <div class="col-5 text-center border-right text-white">
+                      <div class="h5">0</div>
+                      <div class="h6 text-muted">Meus Eventos Criados</div>
+                    </div>
+                    <div class="col-7 text-center text-white">
+                      <div class="h5">0</div>
+                      <div class="h6 text-muted">Eventos como Palestrante</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

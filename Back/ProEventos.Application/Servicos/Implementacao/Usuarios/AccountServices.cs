@@ -91,8 +91,11 @@ namespace ProEventos.Application.Servicos.Implementacao.Usuarios
 
                 mapper.Map(usuarioUpdateDto, usuario);
 
-                var token = await userManager.GeneratePasswordResetTokenAsync(usuario);
-                var resetPassword = await userManager.ResetPasswordAsync(usuario, token, usuarioUpdateDto.Password);
+                if (usuarioUpdateDto.Password != null )
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(usuario);
+                    var resetPassword = await userManager.ResetPasswordAsync(usuario, token, usuarioUpdateDto.Password);
+                }
 
                 usuarioPersistence.Update<Usuario>(usuario);
 

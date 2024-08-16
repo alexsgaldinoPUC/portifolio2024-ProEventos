@@ -1,0 +1,15 @@
+<form [formGroup]="formPalestrante">
+  <div class="row p-1">
+    <div class="form-group col-12 p-1 m-0">
+      <h4 class="border-bottom">Detalhe Palestrante</h4>
+    </div>
+    <div class="form-group  p-1 m-0">
+      <label>Mini Currículo</label>
+      <textarea type="text" formControlName="miniCurriculo" class="form-control" [ngClass]="fieldValidator(fc.dataEvento)"></textarea>
+      <div class="invalid-feedback">{{ messageReturned(fc.miniCurriculo, "") }}</div>
+      <small class="form-text" [ngClass]="corDescricao">
+        {{situacaoForm}}
+      </small>
+    </div>
+  </div>
+</form>

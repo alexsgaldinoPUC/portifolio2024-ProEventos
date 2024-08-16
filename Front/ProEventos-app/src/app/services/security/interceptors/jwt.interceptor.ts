@@ -3,7 +3,8 @@ import { AccountService } from '../../Usuario';
 import { inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from '../../../interfaces/models';
-import { take } from 'rxjs';
+import { catchError, take, throwError } from 'rxjs';
+import { environment } from '../../../../assets/environments/environment';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const accountService = inject(AccountService);
@@ -29,5 +30,16 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     },
   });
 
-  return next(req);
+  return next(req)
+    .pipe(catchError(
+      error => {
+        if (error) {
+          //localStorage.removeItem(environment.localStorageName)
+          //location.replace("/usuarios/login");
+          console.log("JWT Return")
+        }
+
+        return throwError(error);
+      }
+    ));
 };

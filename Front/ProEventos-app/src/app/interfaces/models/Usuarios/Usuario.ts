@@ -5,4 +5,5 @@ export interface  Usuario {
   primeiroNome: string;
   ultimoNome: string;
   token: string;
+  imagemURL: string;
 }

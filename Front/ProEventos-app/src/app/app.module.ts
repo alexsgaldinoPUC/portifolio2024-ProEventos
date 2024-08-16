@@ -19,6 +19,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -31,11 +32,12 @@ import {
   CadastroComponent,
   LoginComponent,
   PerfilComponent,
+  PerfilDetalheComponent,
   UsuarioComponent,
 } from './components/usuario';
 import { ContatosComponent } from './components/contatos/contatos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+
 import {
   EventoDetalheComponent,
   EventoListaComponent,
@@ -48,8 +50,16 @@ import {
   EventoService,
   jwtInterceptor,
   LoteService,
+  PalestranteService,
+  RedeSocialService,
   UploadService,
 } from './services';
+import {
+  PalestranteDetalheComponent,
+  PalestranteListaComponent,
+  PalestrantesComponent,
+} from './components/palestrantes';
+import { RedesSociaisComponent } from './components/redes-sociais';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -67,8 +77,12 @@ defineLocale('pt-br', ptBrLocale);
     HomePageComponent,
     LoginComponent,
     PalestrantesComponent,
+    PalestranteDetalheComponent,
+    PalestranteListaComponent,
     PerfilComponent,
+    PerfilDetalheComponent,
     NavComponent,
+    RedesSociaisComponent,
     UsuarioComponent,
   ],
   imports: [
@@ -87,6 +101,7 @@ defineLocale('pt-br', ptBrLocale);
     }),
     PaginationModule.forRoot(),
     ReactiveFormsModule,
+    TabsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
@@ -100,6 +115,8 @@ defineLocale('pt-br', ptBrLocale);
     AccountService,
     EventoService,
     LoteService,
+    PalestranteService,
+    RedeSocialService,
     UploadService,
     provideHttpClient(withInterceptors([jwtInterceptor])),
   ],

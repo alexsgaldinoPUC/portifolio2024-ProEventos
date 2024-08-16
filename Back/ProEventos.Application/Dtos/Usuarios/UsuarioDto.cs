@@ -13,5 +13,6 @@ namespace ProEventos.Application.Dtos.Usuarios
         public string Password { get; set; }
         public string PrimeiroNome { get; set; }
         public string UltimoNome { get; set; }
+        public string ImagemURL { get; set; }
     }
 }

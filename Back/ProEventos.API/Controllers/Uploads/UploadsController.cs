@@ -55,7 +55,7 @@ namespace ProEventos.API.Controllers.Uploads
         }
 
         [HttpPost("upload-perfil")]
-        public async Task<IActionResult> UploadPerfil(int userId)
+        public async Task<IActionResult> UploadPerfil()
         {
             try
             {

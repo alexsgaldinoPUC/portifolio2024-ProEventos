@@ -45,6 +45,7 @@ export class EventoDetalheComponent {
   public formImagem = {} as FormGroup;
 
   private eventoIdParam: any = '';
+  public eventoId = 0
 
   public evento = {} as Evento;
   public loteAtual = { id: 0, nome: '', indice: 0 };
@@ -88,9 +89,10 @@ export class EventoDetalheComponent {
   }
 
   public ngOnInit(): void {
-    this.eventoIdParam =
-      this.#activateRouterService?.snapshot.paramMap.get('id');
-    this.modoEditar = this.eventoIdParam != null ? true : false;
+    this.eventoIdParam = this.#activateRouterService?.snapshot.paramMap.get('id');
+    this.eventoId = +this.eventoIdParam
+
+    this.modoEditar = this.eventoId != null ? true : false;
 
     this.validation();
     if (this.modoEditar) this.carregarEvento();
@@ -137,7 +139,7 @@ export class EventoDetalheComponent {
     this.#spinnerService.show();
 
     this.#eventoService
-      .getEventoPorId(+this.eventoIdParam)
+      .getEventoPorId(this.eventoId)
       .subscribe({
         next: (evento: Evento) => {
           this.evento = { ...evento };
@@ -186,17 +188,17 @@ export class EventoDetalheComponent {
   public salvarLotes(): void {
     if (this.formLotes.valid) {
       this.#spinnerService.show();
-      console.log(this.eventoIdParam);
+      console.log(this.eventoId);
       console.log(this.formLotes.value.lotes);
       this.#loteService
-        .saveLote(this.eventoIdParam, this.formLotes.value.lotes)
+        .saveLote(this.eventoId, this.formLotes.value.lotes)
         .subscribe({
           next: () => {
             this.#toastrService.success(
               'Lotes salvos com sucesso!',
               'Sucesso!'
             );
-            this.lotes.reset();
+            //this.lotes.reset();
           },
           error: (error: any) => {
             console.error(error);
@@ -208,7 +210,7 @@ export class EventoDetalheComponent {
   }
 
   public alterarEvento(): void {
-    this.evento = { id: +this.eventoIdParam, ...this.formEvento.value };
+    this.evento = { id: +this.eventoId, ...this.formEvento.value };
 
     this.#eventoService
       .updateEvento(this.evento)
@@ -237,7 +239,7 @@ export class EventoDetalheComponent {
     this.#spinnerService.show();
 
     this.#loteService
-      .deleteLote(this.eventoIdParam, this.loteAtual.id)
+      .deleteLote(this.eventoId, this.loteAtual.id)
       .subscribe({
         next: (retorno: any) => {
           this.lotes.removeAt(this.loteAtual.indice);
@@ -291,7 +293,7 @@ export class EventoDetalheComponent {
     this.#spinnerService.show();
 
     this.#uploadService
-      .uploadImagem(this.eventoIdParam, file)
+      .uploadImagem(this.eventoId, file)
       .subscribe({
         next: () => {
           this.carregarEvento();

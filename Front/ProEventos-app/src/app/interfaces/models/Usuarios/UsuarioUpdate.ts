@@ -10,4 +10,5 @@ export interface  UsuarioUpdate {
   descricao:string;
   password: string;
   token: string;
+  imagemURL: string
 }

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AccountService } from './services';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Usuario } from './interfaces/models';
+import { environment } from '../assets/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,8 @@ export class AppComponent implements OnInit {
 
     let usuario = {} as Usuario;
 
-    if (localStorage.getItem("proeventos-api")) {
-      usuario = JSON.parse(localStorage.getItem("proeventos-api") ?? "{}")
+    if (localStorage.getItem(environment.localStorageName)) {
+      usuario = JSON.parse(localStorage.getItem(environment.localStorageName) ?? "{}")
     }
 
     console.log("AppComponent", usuario)

@@ -1,127 +1,96 @@
-<div class="card rounded shadow-sm p-1 mt-2 bg-light">
-  <form [formGroup]="formPerfil" (ngSubmit)="onSubmit()">
-    <div class="row p-1">
-      <div class="col-lg-4 pt-1">
-        <div class="card mb-3 ">
-          <div class="card-header "></div>
-          <div class="d-flex align-self-center pt-3">
-            <a>
-              <img
-              src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
-              name="aboutme" width="120" height="120" class="rounded-circle">
-            </a>
+<div class="card rounded shadow-sm p-1 pb-2 mt-2 bg-body-tertiary">
+  <div class="row p-1">
+    <div class="col-lg-3 pt-1">
+      <div class="card mb-3">
+        <div class="card-header p-2 bg-secondary text-center text-white">
+          Perfil Card
+          <input
+          type="file"
+          #file
+          class="form-control is-invalid"
+          (change)="onFileChange($event)"
+          placeholder=""
+          style="display: none"
+          />
+        </div>
+        <div class="d-flex align-self-center pt-3">
+          <a>
+            <img
+              [src]="imagemURL"
+              (click)="file.click()"
+              name="aboutme"
+              width="120"
+              height="120"
+              class="rounded-circle"
+              role="button"
+            />
+          </a>
+        </div>
+        <div class="card-body">
+          <div class="h7 text-center mb-3"> <i class="fa fa-at"></i> {{ usuario.email }}</div>
+          <div class="h7 text-bold pb-1">
+            <b>Título: </b>{{ usuario.titulo }}
+            <br>
+            <b>Nome: </b>{{ usuario.primeiroNome }} {{ usuario.ultimoNome }}
+            <br>
+            <b>e-mail: </b>{{ usuario.email }}
+            <br>
+            <b>Conta: </b>{{ usuario.userName }}
+            <br>
+            <b>Contato: </b>{{ usuario.phoneNumber }}
+            <br>
+            <b>Função: </b>{{ usuario.funcao }}
+            <hr>
           </div>
-          <div class="card-body">
-            <div class="h4 text-center mb-3">{{fc.userName.value}}</div>
-            <div class="h7 text-bold pb-1"><b>Nome: </b>{{fc.primeiroNome.value}} {{fc.ultimoNome.value}}</div>
-            <div class="h7">
-              {{fc.descricao.value}}
-            </div>
+          <div class="h7">
+            {{ usuario.descricao }}
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+        </div>
+        <div class="card-footer bg-secondary p-1">
+          <ul class="list-group list-group-flush ">
+            <li class="list-group-item bg-secondary ">
               <div class="row">
-                <div class="col-6 text-center border-right">
+                <div class="col-5 text-center border-right text-white">
                   <div class="h5">0</div>
                   <div class="h6 text-muted">Meus Eventos Criados</div>
                 </div>
-                <div class="col-6 text-center">
+                <div class="col-7 text-center text-white">
                   <div class="h5">0</div>
-                  <div class="h6 text-muted">Eventos como Participante</div>
+                  <div class="h6 text-muted">Eventos como {{ehPalestrante ? "Palestrante" : "Participante"}}</div>
                 </div>
               </div>
             </li>
           </ul>
-          <div class="card-footer"></div>
-        </div>
-      </div>
-      <div class="col-lg-8">
-        <div class="row me-0">
-          <div class="form-group col-12 p-1 m-0">
-            <h3 class="border-bottom">Detalhe Perfil</h3>
-          </div>
-          <div class="form-group col-3 p-1 m-0">
-            <label>Título</label>
-            <select class="form-select" formControlName="titulo" [ngClass]="{ 'is-invalid': fc.titulo.errors && fc.titulo.touched }">
-              <option selected value=""></option>
-              <option value="NaoInformado">Não Informado</option>
-              <option value="Tecnologo">Tecnólogo(a)</option>
-              <option value="Bacharel">Bacharel</option>
-              <option value="Especialista">Especialista</option>
-              <option value="PosGraduado">Pós Graduado(a)</option>
-              <option value="Mestre">Mestre</option>
-              <option value="Doutor">Doutor(a)</option>
-              <option value="PosDoutorado">Pós Doutorado</option>
-            </select>
-            <div class="invalid-feedback">{{ messageReturned(fc.titulo, "") }} </div>
-          </div>
-          <div class="form-group col-sm-4 p-1 m-0">
-            <label >Primeiro Nome</label>
-            <input type="text" class="form-control" formControlName="primeiroNome" [ngClass]="{ 'is-invalid': fc.primeiroNome.errors && fc.primeiroNome.touched }"/>
-            <div class="invalid-feedback">{{ messageReturned(fc.primeiroNome, "") }}</div>
-          </div>
-          <div class="form-group col-sm-5 p-1 m-0">
-            <label>Último nome</label>
-            <input type="text" class="form-control" formControlName="ultimoNome" [ngClass]="{ 'is-invalid': fc.ultimoNome.errors && fc.ultimoNome.touched }"/>
-            <div class="invalid-feedback">{{ messageReturned(fc.ultimoNome, "") }}</div>
-          </div>
-        </div>
-        <div class="row me-0">
-          <div class="form-group col-sm-5 p-1 m-0">
-            <label>e-mail</label>
-            <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': fc.email.errors && fc.email.touched }" />
-            <div class="invalid-feedback">{{ messageReturned(fc.email, "") }}</div>
-          </div>
-          <div class="form-group col-sm-4 p-1 m-0">
-            <label>Telefone</label>
-            <input type="text" class="form-control" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': fc.phoneNumber.errors && fc.phoneNumber.touched }"/>
-            <div class="invalid-feedback">{{ messageReturned(fc.phoneNumber, "") }}</div>
-          </div>
-          <div class="form-group col-sm p-1 m-0">
-            <label>Função</label>
-            <select class="form-select" formControlName="funcao" [ngClass]="{ 'is-invalid': fc.funcao.errors && fc.funcao.touched }">
-              <option value="NaoInformado">Não Informado</option>
-              <option value="Participante">Participante</option>
-              <option value="Palestrante">Palestrante</option>
-            </select>
-            <div class="invalid-feedback">{{ messageReturned(fc.funcao, "") }}</div>
-          </div>
-          <div class="form-group col-12 p-1 m-0">
-            <label>Descrição</label>
-            <textarea type="text" class="form-control" formControlName="descricao" [ngClass]="{ 'is-invalid': fc.descricao.errors && fc.descricao.touched }"></textarea>
-            <div class="invalid-feedback">{{ messageReturned(fc.descricao, "") }}</div>
-          </div>
-        </div>
-        <div>
-          <h3 class="pt-3 border-bottom p-1 m-0">Mudar Senha</h3>
-          <p>Caso mude de senha, preencha os campos abaixo:</p>
-        </div>
-        <div class="row p-1">
-          <div class="form-group col-sm-6 p-1 m-0">
-            <label>Senha</label>
-            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': fc.password.errors && fc.password.touched }"/>
-            <div class="invalid-feedback">{{ messageReturned(fc.password, "") }}</div>
-          </div>
-          <div class="form-group col-sm-6 p-1 m-0">
-            <label>Confirmar Senha</label>
-            <input type="password" class="form-control" formControlName="confirmarPassword" [ngClass]="{ 'is-invalid': fc.confirmarPassword.errors && fc.confirmarPassword.touched }"/>
-            <div class="invalid-feedback">{{ messageReturned(fc.confirmarPassword, "Confirmar Senha") }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer">
-      <div class="d-flex">
-        <button class="btn btn-outline-secondary me-auto  " (click)="resetForm($event)">
-          Cancelar Alteração
-        </button>
-        <button type="submit" class="btn btn-outline-success" [disabled]="formPerfil.invalid">
-          Salvar Alteração
-        </button>
-      </div>
-    </div>
-  </form>
-</div>
 
-{{formPerfil.value | json}}
-{{formPerfil.status }}
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <tabset>
+        <tab>
+          <ng-template tabHeading>
+            <i class="fa fa-address-card me-2"></i>
+            <span>Perfil</span>
+          </ng-template>
+          <app-perfil-detalhe (changeFormValue)="getFormValue($event)"></app-perfil-detalhe>
+        </tab>
+        @if (ehPalestrante) {
+          <tab >
+            <ng-template tabHeading>
+              <i class="fa fa-user me-2"></i>
+              <span>Palestrante</span>
+            </ng-template>
+            <app-palestrante-detalhe></app-palestrante-detalhe>
+          </tab>
+          <tab >
+            <ng-template tabHeading>
+              <i class="fa fa-share-square me-2"></i>
+              <span>Rede Social</span>
+            </ng-template>
+            <app-redes-sociais></app-redes-sociais>
+          </tab>
+        }
+      </tabset>
+    </div>
+  </div>
+</div>

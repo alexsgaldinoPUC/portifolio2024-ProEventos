@@ -12,7 +12,8 @@
                 class="form-control"
                 [ngClass]="fieldValidator(fc.tema)"
                 formControlName="tema"
-                placeholder="Insira o Tema" [(ngModel)]="evento.tema"
+                placeholder="Insira o Tema"
+                [(ngModel)]="evento.tema"
               />
               <div class="invalid-feedback">
                 {{ messageReturned(fc.tema, "") }}
@@ -27,7 +28,8 @@
                 class="form-control"
                 [ngClass]="fieldValidator(fc.local)"
                 formControlName="local"
-                placeholder="" [(ngModel)]="evento.local"
+                placeholder=""
+                [(ngModel)]="evento.local"
               />
               <div class="invalid-feedback">
                 {{ messageReturned(fc.local, "") }}
@@ -40,7 +42,8 @@
                 class="form-control"
                 [ngClass]="fieldValidator(fc.dataEvento)"
                 formControlName="dataEvento"
-                placeholder="" [(ngModel)]="evento.dataEvento"
+                placeholder=""
+                [(ngModel)]="evento.dataEvento"
                 bsDatepicker
                 [bsConfig]="bsConfig"
                 value="{{ evento.dataEvento | DateTimeFormat }}"
@@ -71,7 +74,8 @@
                 class="form-control"
                 [ngClass]="fieldValidator(fc.telefone)"
                 formControlName="telefone"
-                placeholder="(00) 90000-0000" [(ngModel)]="evento.telefone"
+                placeholder="(00) 90000-0000"
+                [(ngModel)]="evento.telefone"
               />
               <div class="invalid-feedback">
                 {{ messageReturned(fc.telefone, "") }}
@@ -84,7 +88,8 @@
                 class="form-control"
                 [ngClass]="fieldValidator(fc.email)"
                 formControlName="email"
-                placeholder="e-mail" [(ngModel)]="evento.email"
+                placeholder="e-mail"
+                [(ngModel)]="evento.email"
               />
               <div class="invalid-feedback">
                 {{ messageReturned(fc.email, "") }}
@@ -118,7 +123,7 @@
         <div class="d-flex border-bottom">
           <h2 class="me-auto">Lotes do Evento</h2>
           <h2>
-            <i class="fas fa-money-bill-wave"></i>
+            <i class="fa fa-money-bill-wave"></i>
           </h2>
         </div>
         <p>Clique em Lote para adicionar e preencher novos Lotes</p>
@@ -247,7 +252,21 @@
     </div>
     <br />
     }
+    @if (modoEditar) {
+      <div class="card rounded shadow-sm mt-4">
+        <div class="p-3">
+          <div class="d-flex border-bottom">
+            <h2 class="me-auto">Redes Sociais do Evento</h2>
+            <h2>
+              <i class="fa fa-share-square"></i>
+            </h2>
+          </div>
+          <app-redes-sociais [eventoId]="eventoId"></app-redes-sociais>
+        </div>
+      </div>
+      }
   </div>
+
   @if (modoEditar) {
   <div class="col-md-4 pr-2">
     <div [formGroup]="formImagem" class="card-evento-view shadow-sm mt-1">
@@ -260,35 +279,34 @@
             (change)="onFileChange($event)"
             placeholder=""
             style="display: none"
-            />
-          </div>
+          />
         </div>
-        <div class="card profile-card-2">
-          <div class="card-img-block">
-            <img
+      </div>
+      <div class="card profile-card-2">
+        <div class="card-img-block">
+          <img
             [src]="imagemUrl"
             class="image img-fluid"
             (click)="file.click()"
             alt="Card image cap"
             tootip="Upload de Nova Imagem"
-
             placement="bottom"
           />
         </div>
         <div class="card-body pt-3">
-          <h4 class="text-center">{{evento.tema}}</h4>
+          <h4 class="text-center">{{ evento.tema }}</h4>
           <p class="card-text">
-            <b>Local:</b> {{evento.local}}
-            <br>
-            <b>Data:</b> {{evento.dataEvento | DateTimeFormat}}
+            <b>Local:</b> {{ evento.local }}
+            <br />
+            <b>Data:</b> {{ evento.dataEvento | DateTimeFormat }}
           </p>
-          <hr>
+          <hr />
           <p class="card-text">
             <b>Contatos</b>
-            <br>
-            <small class="text-muted">Telefone: {{evento.telefone}}</small>
-            <br>
-            <small class="text-muted">e-mail: {{evento.email}}</small>
+            <br />
+            <small class="text-muted">Telefone: {{ evento.telefone }}</small>
+            <br />
+            <small class="text-muted">e-mail: {{ evento.email }}</small>
           </p>
           <div class="row">
             <div class="icon-block col-md-8 iconesSociais">
@@ -300,9 +318,11 @@
         </div>
       </div>
     </div>
+
   </div>
   }
 </div>
+
 
 <ng-template #template>
   <div class="modal-body text-center">

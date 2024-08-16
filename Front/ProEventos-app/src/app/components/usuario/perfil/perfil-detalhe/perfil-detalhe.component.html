@@ -1,0 +1,88 @@
+<form [formGroup]="formPerfil" (ngSubmit)="onSubmit()">
+  <div class="row p-1">
+    <div class="form-group col-12 p-1 m-0">
+      <h4 class="border-bottom">Detalhe Perfil</h4>
+    </div>
+    <div class="form-group col-3 p-1 m-0">
+      <label>Título</label>
+      <select class="form-select" formControlName="titulo" [ngClass]="{ 'is-invalid': fc.titulo.errors && fc.titulo.touched }">
+        <option selected value=""></option>
+        <option value="NaoInformado">Não Informado</option>
+        <option value="Tecnologo">Tecnólogo(a)</option>
+        <option value="Bacharel">Bacharel</option>
+        <option value="Especialista">Especialista</option>
+        <option value="PosGraduado">Pós Graduado(a)</option>
+        <option value="Mestre">Mestre</option>
+        <option value="Doutor">Doutor(a)</option>
+        <option value="PosDoutorado">Pós Doutorado</option>
+      </select>
+      <div class="invalid-feedback">{{ messageReturned(fc.titulo, "") }} </div>
+    </div>
+    <div class="form-group col-sm-4 p-1 m-0">
+      <label >Primeiro Nome</label>
+      <input type="text" class="form-control" formControlName="primeiroNome" [ngClass]="{ 'is-invalid': fc.primeiroNome.errors && fc.primeiroNome.touched }"/>
+      <div class="invalid-feedback">{{ messageReturned(fc.primeiroNome, "") }}</div>
+    </div>
+    <div class="form-group col-sm-5 p-1 m-0">
+      <label>Último nome</label>
+      <input type="text" class="form-control" formControlName="ultimoNome" [ngClass]="{ 'is-invalid': fc.ultimoNome.errors && fc.ultimoNome.touched }"/>
+      <div class="invalid-feedback">{{ messageReturned(fc.ultimoNome, "") }}</div>
+    </div>
+  </div>
+  <div class="row p-1">
+    <div class="form-group col-sm-5 p-1 m-0">
+      <label>e-mail</label>
+      <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': fc.email.errors && fc.email.touched }" />
+      <div class="invalid-feedback">{{ messageReturned(fc.email, "") }}</div>
+    </div>
+    <div class="form-group col-sm-4 p-1 m-0">
+      <label>Telefone</label>
+      <input type="text" class="form-control" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': fc.phoneNumber.errors && fc.phoneNumber.touched }"/>
+      <div class="invalid-feedback">{{ messageReturned(fc.phoneNumber, "") }}</div>
+    </div>
+    <div class="form-group col-sm p-1 m-0">
+      <label>Função</label>
+      <select class="form-select" formControlName="funcao" [ngClass]="{ 'is-invalid': fc.funcao.errors && fc.funcao.touched }">
+        <option value="NaoInformado">Não Informado</option>
+        <option value="Participante">Participante</option>
+        <option value="Palestrante">Palestrante</option>
+      </select>
+      <div class="invalid-feedback">{{ messageReturned(fc.funcao, "") }}</div>
+    </div>
+    <div class="form-group col-12 p-1 m-0">
+      <label>Descrição</label>
+      <textarea type="text" class="form-control" formControlName="descricao" [ngClass]="{ 'is-invalid': fc.descricao.errors && fc.descricao.touched }"></textarea>
+      <div class="invalid-feedback">{{ messageReturned(fc.descricao, "") }}</div>
+    </div>
+  </div>
+  <div class="row p-1">
+    <div class="form-group col-12 p-1 m-0">
+      <h4 class="mt-3 border-bottom">Mudar Senha</h4>
+      <h6>Caso mude de senha, preencha os campos abaixo:</h6>
+    </div>
+    <div class="form-group col-sm-6 p-1 m-0">
+      <label>Senha</label>
+      <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': fc.password.errors && fc.password.touched }"/>
+      <div class="invalid-feedback">{{ messageReturned(fc.password, "") }}</div>
+    </div>
+    <div class="form-group col-sm-6 p-1 m-0">
+      <label>Confirmar Senha</label>
+      <input type="password" class="form-control" formControlName="confirmarPassword" [ngClass]="{ 'is-invalid': fc.confirmarPassword.errors && fc.confirmarPassword.touched }"/>
+      <div class="invalid-feedback">{{ messageReturned(fc.confirmarPassword, "Confirmar Senha") }}</div>
+    </div>
+  </div>
+  <div class="row p-1">
+  </div>
+  <div class="card-footer bg-primary mt-0">
+    <div class="d-flex">
+      <button class="btn btn-danger me-auto  " (click)="resetForm($event)">
+        Cancelar Alteração
+      </button>
+      <button type="submit" class="btn btn-success" [disabled]="formPerfil.invalid">
+        Salvar Alteração
+      </button>
+    </div>
+  </div>
+</form>
+<!-- {{formPerfil.value | json}}
+{{formPerfil.status }}  -->

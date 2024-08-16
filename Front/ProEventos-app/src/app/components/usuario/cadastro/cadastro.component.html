@@ -22,11 +22,11 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{ 'is-invalid': fc.nome.errors && fc.nome.touched }"
-            formControlName="nome"
+            [ngClass]="{ 'is-invalid': fc.primeiroNome.errors && fc.primeiroNome.touched }"
+            formControlName="primeiroNome"
             placeholder="Insira o Primeiro nome"
           />
-          <div class="invalid-feedback">{{ messageReturned(fc.nome, "") }}</div>
+          <div class="invalid-feedback">{{ messageReturned(fc.primeiroNome, "") }}</div>
         </div>
         <div class="form-group col-sm-6">
           <label>Último nome</label>
@@ -34,13 +34,13 @@
             type="text"
             class="form-control"
             [ngClass]="{
-              'is-invalid': fc.sobrenome.errors && fc.sobrenome.touched
+              'is-invalid': fc.ultimoNome.errors && fc.ultimoNome.touched
             }"
-            formControlName="sobrenome"
+            formControlName="ultimoNome"
             placeholder="Insira o Último nome"
           />
           <div class="invalid-feedback">
-            {{ messageReturned(fc.sobrenome, "") }}
+            {{ messageReturned(fc.ultimoNome, "") }}
           </div>
         </div>
       </div>

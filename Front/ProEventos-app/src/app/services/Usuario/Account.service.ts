@@ -25,19 +25,19 @@ export class AccountService {
   }
 
   public setCurrentUser(_usuario: Usuario): void {
-    localStorage.setItem('proeventos-api', JSON.stringify(_usuario));
+    localStorage.setItem(environment.localStorageName, JSON.stringify(_usuario));
 
     this.currentUserSource.next(_usuario);
   }
 
   public logout(): void {
-    localStorage.removeItem('proeventos-api');
+    localStorage.removeItem(environment.localStorageName);
     this.currentUserSource.next(null!);
     this.currentUserSource.complete();
   }
 
   public cadastrar(model: any): Observable<void> {
-    return this.#http.post<Usuario>(this.baseUrl + '/cadastrarConta', model)
+    return this.#http.post<Usuario>(this.baseUrl + 'cadastrarConta', model)
       .pipe(take(1), map((usuario: Usuario) => {
         if (usuario) {
           this.setCurrentUser(usuario);
